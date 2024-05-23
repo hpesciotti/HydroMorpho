@@ -22,12 +22,12 @@ def get_data(variable_input):
     Get the basin data inputed by the user 
     """
     while True:
-        if variable_input == RE_PATTERNS['Lat']:
+        if variable_input == RE_PATTERNS['Lat_Centroid']:
             print("Please enter the latitude coordinate in the Decimal Degrees format of the basin's centroid.\n")
             print("Please adhere to the specified format of the example with the exact number of digits.\n")
             print("e.g.: -20.102852\n")
             print('If unsure, go back to "Main Menu>Instructions" to better understand the data to be provided.\n')
-        elif variable_input == RE_PATTERNS['Long']:
+        elif variable_input == RE_PATTERNS['Long_Centroid']:
             print("Please enter the longitude coordinate in the Decimal Degrees format of the basin's centroid..\n")
             print("Please adhere to the specified format of the example with the exact number of digits.\n")
             print("e.g.: -43.453612\n")
@@ -50,5 +50,22 @@ def get_data(variable_input):
             break
         return data_str
     
-    
+# Function to validate the RegEx pattern, inspired by Code Institue's Love Sandwiches project 
+def validate_data(data, pattern):
+    """
+    Run RegEx based on the input data's type 
+    """
+    if re.match(pattern, data):
+        print(f"'{data}' matches the pattern")
+        return True
+    else:
+        print(f"'{data}' does not match the pattern")
+        return False
 
+def main():
+    latitude = get_data(RE_PATTERNS['Lat_Centroid'])
+    longitude = get_data(RE_PATTERNS['Long_Centroid'])
+    altitude = get_data(RE_PATTERNS['Elevation_Basin_Outlet_HBO'])
+    lenght = get_data(RE_PATTERNS['Basin_Length_Lb'])
+
+    print(f"Latitude:{latitude}, Longitude:{longitude}, Elevation:{altitude}, Lenght:{lenght}")
