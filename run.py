@@ -113,7 +113,7 @@ def validate_data(data, pattern, variable_input):
     Run Regex based on the input data's type and re-run input if there's an error
     """
     if re.match(pattern, data):
-        print(f"'Data is valid, {data} matches the pattern\n")
+        print(f'Data is valid, {data} matches the pattern\n')
         return True
     else:
         print(f"Invalid input, {data} does not match the pattern")
@@ -122,14 +122,28 @@ def validate_data(data, pattern, variable_input):
         get_data(variable_input)
         return False
 
+def check_elevation():
+    print('Running some validations...\n')
+    if (basin_variables['elev_outlet_ho']) < (basin_variables['elev_b_spring_hs']) < (basin_variables['elev_b_highest_p_hhp']):
+        print('Elevation inputted data is consistent.\n')
+        print('Proceeding...\n')
+        # call table function
+    else:
+        print("The elevation data you entered is invalid.")
+        print("The outlet elevation must be inferior to the basin's main channel initial point elevation.")
+        print("In addition, the latter has to be inferior to the highest point in the basin.")
+        # return to main
+    
 
-def app_exit():
-    if data_str == 'Exit' or 'exit':
-        main()
+# def app_exit():
+#     if data_str == 'Exit' or 'exit':
+#         main()
 
 def main():
     for key in basin_variables.keys():
         get_data(key)
+
+    check_elevation()
 
     print(basin_variables)
 
