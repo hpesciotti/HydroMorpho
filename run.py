@@ -41,7 +41,7 @@ def get_data(variable_input):
     while True:
         if variable_input == 'basin_name':
             pattern = RE_PATTERNS['basin_naming']
-            print("Please enter the basin's name. Up to 25 lowercase characters and numbers are aloud.")
+            print("Please enter the basin's name. Up to 25 lowercase characters and numbers are allowed.")
             print('As shown in the example, use the prefix "b_" and separate words with the "_" underscore.')
             print("e.g.: b_river_suir_02\n")
         elif variable_input == 'lat_centroid':
@@ -123,16 +123,24 @@ def validate_data(data, pattern, variable_input):
         return False
 
 def check_elevation():
+    """
+    Checks elevation based on the inputted variables. 
+    Following the physiographic arrangement of the relief, the output elevation can't be greater than the other two variables.
+    Likewise, the spring elevation is positioned in a lower quota than the highest point of the watershed.
+    Taking into account those facts, this snippet was built.
+    """
+    
     print('Running some validations...\n')
+
     if (basin_variables['elev_outlet_ho']) < (basin_variables['elev_b_spring_hs']) < (basin_variables['elev_b_highest_p_hhp']):
         print('Elevation inputted data is consistent.\n')
         print('Proceeding...\n')
         # call table function
     else:
-        print("The elevation data you entered is invalid.")
+        print("The elevation data you entered is invalid.\n")
         print("The outlet elevation must be inferior to the basin's main channel initial point elevation.")
-        print("In addition, the latter has to be inferior to the highest point in the basin.")
-        # return to main
+        print("In addition, the latter has to be inferior to the highest point in the basin.\n")
+    
     
 
 # def app_exit():
