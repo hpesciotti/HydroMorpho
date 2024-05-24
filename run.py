@@ -1,18 +1,19 @@
-# Importing Regular Expression - RegEX to validate specific patterns for morphometric input data. 
+# Importing Regular Expression - Regex to validate specific patterns for morphometric input data. 
 # I used as fonts the following links:
-# How I found out about RegEX: https://stackoverflow.com/questions/18632491/how-do-i-check-for-an-exact-word-or-phrase-in-a-string-in-python
-# RegEx Calculator: https://regex101.com/
-# RegEx reading material: https://www.w3schools.com/python/python_regex.asp
+# How I found out about Regex: https://stackoverflow.com/questions/18632491/how-do-i-check-for-an-exact-word-or-phrase-in-a-string-in-python
+# Regex Calculator: https://regex101.com/
+# Regex reading material: https://www.w3schools.com/python/python_regex.asp
+# Regex negative and positive lookahead assertions: https://www.regextutorial.org/positive-and-negative-lookahead-assertions.php
 
 import re
 
 #Constants
 
-#RegEx Constants
+#Regex Constants
 RE_PATTERNS = {
-    'decimal_degrees': r'^[+-]\d{2}\.\d{6}$',
-    'four_digits': r'^\d{4}$',
-    'three_digits_point': r'^\d{3}\.d{3}$',
+    'decimal_degrees': r'^(?![+-]00\.000000$)[+-]\d{2}\.\d{6}$',
+    'four_digits': r'^(?!0000$)\d{4}$',
+    'three_digits': r'^(?!000\.000$)\d{3}\.\d{3}$',
     'basin_naming': r'^b_[a-z0-9_]{0,23}$',
     'urb_degree': r'^[1-4]$'
 }
@@ -24,8 +25,8 @@ basin_variables = {
     'long_centroid': [],
     'area_sqkm': [],
     'perimeter_km': [],
-    'main_lenght_ls': [],
-    'basin_lenght_lb': [],
+    'main_length_ls': [],
+    'basin_length_lb': [],
     'elev_outlet_ho': [],
     'elev_b_spring_hs': [],
     'elev_b_highest_p_hhp':[],
@@ -54,22 +55,22 @@ def get_data(variable_input):
             print("Please adhere to the specified format of the example with the exact number of digits.")
             print("e.g.: -43.453612\n")
         elif variable_input == 'area_sqkm':
-            pattern = RE_PATTERNS['three_digits_point']
+            pattern = RE_PATTERNS['three_digits']
             print("Please enter the basin's area in km².")
             print("Please adhere to the specified format of the example with the exact number of digits.")
-            print("e.g.: 008.617\n")
+            print("e.g.: 002.708\n")
         elif variable_input == 'perimeter_km':
-            pattern = RE_PATTERNS['three_digits_point']
+            pattern = RE_PATTERNS['three_digits']
             print("Please enter the basin's perimeter in km².")
             print("Please adhere to the specified format of the example with the exact number of digits.")
             print("e.g.: 007.289\n")
         elif variable_input == 'main_length_ls':
-            pattern = RE_PATTERNS['three_digits_point']
-            print("Please enter the basin's length in kilometres.")
+            pattern = RE_PATTERNS['three_digits']
+            print("Please enter the main stream length in kilometres.")
             print("Please adhere to the specified format of the example with the exact number of digits.")
-            print("e.g.: 001.546\n")
+            print("e.g.: 001.612\n")
         elif variable_input == 'basin_length_lb':
-            pattern = RE_PATTERNS['three_digits_point']
+            pattern = RE_PATTERNS['three_digits']
             print("Please enter the basin's length in kilometres.")
             print("Please adhere to the specified format of the example with the exact number of digits.")
             print("e.g.: 001.761\n")
@@ -106,10 +107,10 @@ def get_data(variable_input):
         return data_str
 
 
-# Function to validate the RegEx pattern, inspired by Code Institue's Love Sandwiches project 
+# Function to validate the Regex pattern, inspired by Code Institue's Love Sandwiches project 
 def validate_data(data, pattern, variable_input):
     """
-    Run RegEx based on the input data's type and re-run input if there's an error
+    Run Regex based on the input data's type and re-run input if there's an error
     """
     if re.match(pattern, data):
         print(f"'Data is valid, {data} matches the pattern\n")
@@ -121,15 +122,15 @@ def validate_data(data, pattern, variable_input):
         get_data(variable_input)
         return False
 
-        
+
+def app_exit():
+    if data_str == 'Exit' or 'exit':
+        main()
 
 def main():
-    get_data('basin_name')
-    get_data('lat_centroid')
-    get_data('long_centroid')
+    for key in basin_variables.keys():
+        get_data(key)
 
-    print(f"Latitude:{basin_variables['lat_centroid']}, Longitude:{basin_variables['long_centroid']}")
-
-    # print(f"Latitude:{latitude}, Longitude:{longitude}, Elevation:{altitude}, Lenght:{lenght}")
+    print(basin_variables)
 
 main()
