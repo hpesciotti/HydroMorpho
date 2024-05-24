@@ -14,6 +14,7 @@ RE_PATTERNS = {
     'four_digits': r'^\d{4}$',
     'three_digits_point': r'^\d{3}\.d{3}$',
     'basin_naming': r'^b_[a-z0-9_]{0,23}$',
+    'urb_degree': r'^[1-4]$'
 }
 
 #Basin Variables: object with provisory data before approval and transition to Google Sheets
@@ -21,8 +22,14 @@ basin_variables = {
     'basin_name': [],
     'lat_centroid': [],
     'long_centroid': [],
-    'elevation_outlet_ho': [],
-    'basin_length_lb': [],    
+    'area_sqkm': [],
+    'perimeter_km': [],
+    'main_lenght_ls': [],
+    'basin_lenght_lb': [],
+    'elev_outlet_ho': [],
+    'elev_b_spring_hs': [],
+    'elev_b_highest_p_hhp':[],
+    'urbanization_level_u': [],
 }
 
 #Method inspired by Code Institue's Love Sandwiches project 
@@ -46,21 +53,50 @@ def get_data(variable_input):
             print("Please enter the longitude coordinate in the Decimal Degrees format of the basin's centroid.")
             print("Please adhere to the specified format of the example with the exact number of digits.")
             print("e.g.: -43.453612\n")
-        elif variable_input == 'elevation_outlet_ho':
-            pattern = RE_PATTERNS['four_digits']
-            print("Please enter the elevation of the basin outlet in meters.")
+        elif variable_input == 'area_sqkm':
+            pattern = RE_PATTERNS['three_digits_point']
+            print("Please enter the basin's area in km².")
             print("Please adhere to the specified format of the example with the exact number of digits.")
-            print("e.g.: 0966\n")
+            print("e.g.: 008.617\n")
+        elif variable_input == 'perimeter_km':
+            pattern = RE_PATTERNS['three_digits_point']
+            print("Please enter the basin's perimeter in km².")
+            print("Please adhere to the specified format of the example with the exact number of digits.")
+            print("e.g.: 007.289\n")
+        elif variable_input == 'main_length_ls':
+            pattern = RE_PATTERNS['three_digits_point']
+            print("Please enter the basin's length in kilometres.")
+            print("Please adhere to the specified format of the example with the exact number of digits.")
+            print("e.g.: 001.546\n")
         elif variable_input == 'basin_length_lb':
             pattern = RE_PATTERNS['three_digits_point']
             print("Please enter the basin's length in kilometres.")
             print("Please adhere to the specified format of the example with the exact number of digits.")
-            print("e.g.: 001.546\n")
-        elif variable_input == 'basin_name':
-            pattern = RE_PATTERNS['three_digits_point']
-            print("Please enter the basin's length in kilometres.")
+            print("e.g.: 001.761\n")
+        elif variable_input == 'elev_outlet_ho':
+            pattern = RE_PATTERNS['four_digits']
+            print("Please enter the elevation of the basin's outlet in meters.")
             print("Please adhere to the specified format of the example with the exact number of digits.")
-            print("e.g.: 001.546\n")
+            print("e.g.: 0961\n")
+        elif variable_input == 'elev_b_spring_hs':
+            pattern = RE_PATTERNS['four_digits']
+            print("Please enter the elevation of the main stream start of the channel (spring) in meters.")
+            print("Please adhere to the specified format of the example with the exact number of digits.")
+            print("e.g.: 1378\n")
+        elif variable_input == 'elev_b_highest_p_hhp':
+            pattern = RE_PATTERNS['four_digits']
+            print("Please enter the elevation of the basin's highest poin in meters.")
+            print("Please adhere to the specified format of the example with the exact number of digits.")
+            print("e.g.: 1413\n")
+        elif variable_input == 'urbanization_level_u':
+            pattern = RE_PATTERNS['urb_degree']
+            print("Please enter the urbanization level in the studied basin. Limit the input to number assigned to")
+            print("degree of urbanization, according to the following values:")
+            print("1 - Low")
+            print("2 - Moderate")
+            print("3 - Consolidated")
+            print("4 - Highly Developed")
+
 
         data_str = input("Input the basin's data here:\n")
 
