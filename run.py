@@ -102,7 +102,8 @@ def get_data(variable_input):
         data_str = input("Input the basin's data here:\n")
 
         if validate_data(data_str, pattern, variable_input):
-            basin_variables[variable_input].append(data_str)
+            basin_variables.update({variable_input : data_str})
+            # basin_variables[variable_input].append(data_str)
             break
         return data_str
 
@@ -165,6 +166,9 @@ def re_enter_elevation():
             print('Incorrect input. Please try again.')
 
 def main():
+    """
+    Run the main functionalities of the app.
+    """
     for key in basin_variables.keys():
         get_data(key)
 
