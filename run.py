@@ -137,11 +137,13 @@ def check_elevation():
     if (basin_variables['elev_outlet_ho']) < (basin_variables['elev_b_spring_hs']) < (basin_variables['elev_b_highest_p_hhp']):
         print('Elevation inputted data is consistent.\n')
         print('Proceeding...\n')
-        # call table function
+        return True
     else:
         print("The elevation data you entered is invalid.\n")
         print("The outlet elevation must be inferior to the basin's main channel initial point elevation.")
         print("In addition, the latter has to be inferior to the highest point in the basin.\n")
+        re_enter_elevation()  
+        return False 
 
 
 def main():
