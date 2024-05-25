@@ -7,9 +7,9 @@
 
 import re
 
-#Constants
+# Constants
 
-#Regex Constants
+# Regex Constants
 RE_PATTERNS = {
     'decimal_degrees': r'^(?![+-]00\.000000$)[+-]\d{2}\.\d{6}$',
     'four_digits': r'^(?!0000$)\d{4}$',
@@ -18,7 +18,8 @@ RE_PATTERNS = {
     'urb_degree': r'^[1-4]$'
 }
 
-#Basin Variables: object with provisory data before approval and transition to Google Sheets
+# Basin Variables: object with provisory data before approval and
+# transition to Google Sheets
 basin_variables = {
     'basin_name': [],
     'lat_centroid': [],
@@ -29,14 +30,15 @@ basin_variables = {
     'basin_length_lb': [],
     'elev_outlet_ho': [],
     'elev_b_spring_hs': [],
-    'elev_b_highest_p_hhp':[],
+    'elev_b_highest_p_hhp': [],
     'urbanization_level_u': [],
 }
 
-#Method inspired by Code Institue's Love Sandwiches project 
+
+# Method inspired by Code Institue's Love Sandwiches project
 def get_data(variable_input):
     """
-    Get the basin data inputed by the user 
+    Get the basin data inputed by the user
     """
     while True:
         if variable_input == 'basin_name':
@@ -98,25 +100,23 @@ def get_data(variable_input):
             print("3 - Consolidated")
             print("4 - Highly Developed")
 
-
         data_str = input("Input the basin's data here:\n")
 
         if validate_data(data_str, pattern, variable_input):
-            basin_variables.update({variable_input : data_str})
-            # basin_variables[variable_input].append(data_str)
+            basin_variables.update({variable_input: data_str})
             break
         return data_str
 
 
-# Function to validate the Regex pattern, inspired by Code Institue's Love Sandwiches project 
+# Function to validate the Regex pattern, inspired by Code Institue's Love Sandwiches project
 def validate_data(data, pattern, variable_input):
     """
-    Run Regex based on the input data's type and re-run input if there's an error
+    Run Regex based on input data's type and re-run input if there's an error
     """
     if re.match(pattern, data):
         print(f'Data is valid, {data} matches the pattern\n')
         return True
-    elif data.lower() =='exit':
+    elif data.lower() == 'exit':
         main()
     else:
         print(f"Invalid input, {data} does not match the pattern")
@@ -125,14 +125,15 @@ def validate_data(data, pattern, variable_input):
         get_data(variable_input)
         return False
 
+
 def check_elevation():
     """
-    Checks elevation based on the inputted variables. 
+    Checks elevation based on the inputted variables.
     Following the physiographic arrangement of the relief, the output elevation can't be greater than the other two variables.
     Likewise, the spring elevation is positioned in a lower quota than the highest point of the watershed.
     Taking into account those facts, this snippet was built.
     """
-    
+
     print('Running some validations...\n')
 
     if (basin_variables['elev_outlet_ho']) < (basin_variables['elev_b_spring_hs']) < (basin_variables['elev_b_highest_p_hhp']):
@@ -143,12 +144,13 @@ def check_elevation():
         print("The elevation data you entered is invalid.\n")
         print("The outlet elevation must be inferior to the basin's main channel initial point elevation.")
         print("In addition, the latter has to be inferior to the highest point in the basin.\n")
-        re_enter_elevation()  
-        return False 
+        re_enter_elevation()
+        return False
+
 
 def re_enter_elevation():
     """
-    Allows the user to re-enter the elevation data after check_elevation detects a discrepancy. 
+    Allows the user to re-enter the elevation data after check_elevation detects a discrepancy.
     The user can also go back to the main menu.
     """
     while True:
@@ -165,6 +167,7 @@ def re_enter_elevation():
         else:
             print('Incorrect input. Please try again.')
 
+
 def main():
     """
     Run the main functionalities of the app.
@@ -175,5 +178,6 @@ def main():
     check_elevation()
 
     print(basin_variables)
+
 
 main()
