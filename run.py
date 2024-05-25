@@ -115,6 +115,8 @@ def validate_data(data, pattern, variable_input):
     if re.match(pattern, data):
         print(f'Data is valid, {data} matches the pattern\n')
         return True
+    elif data.lower() =='exit':
+        main()
     else:
         print(f"Invalid input, {data} does not match the pattern")
         print('If unsure, go back to "Main Menu > Instructions" to better understand the data to be provided.')
@@ -140,12 +142,7 @@ def check_elevation():
         print("The elevation data you entered is invalid.\n")
         print("The outlet elevation must be inferior to the basin's main channel initial point elevation.")
         print("In addition, the latter has to be inferior to the highest point in the basin.\n")
-    
-    
 
-# def app_exit():
-#     if data_str == 'Exit' or 'exit':
-#         main()
 
 def main():
     for key in basin_variables.keys():
