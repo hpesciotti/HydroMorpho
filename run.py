@@ -145,6 +145,24 @@ def check_elevation():
         re_enter_elevation()  
         return False 
 
+def re_enter_elevation():
+    """
+    Allows the user to re-enter the elevation data after check_elevation detects a discrepancy. 
+    The user can also go back to the main menu.
+    """
+    while True:
+        user_input = input("Would you like to re-enter the elevation data? Enter Y or N.\n")
+        if user_input.lower() == 'y':
+            print("\n")
+            get_data('elev_outlet_ho')
+            get_data('elev_b_spring_hs')
+            get_data('elev_b_highest_p_hhp')
+            if check_elevation():
+                break
+        elif user_input.lower() == 'n':
+            main()
+        else:
+            print('Incorrect input. Please try again.')
 
 def main():
     for key in basin_variables.keys():
