@@ -50,12 +50,12 @@ def get_data(variable_input):
             print("Please enter the basin's name. Up to 25 lowercase"
                   " characters and numbers are allowed.")
             print('As shown in the example, use the prefix "b_" and separate'
-                  'words with the "_" underscore.')
-            print("e.g.: b_river_suir_02\n")
+                  ' words with the "_" underscore.\n'
+                  'e.g.: b_river_suir_02\n')
         elif variable_input == 'lat_centroid':
             pattern = RE_PATTERNS['decimal_degrees']
             print("Please enter the latitude coordinate in the Decimal Degrees"
-                  "format of the basin's centroid.")
+                  " format of the basin's centroid.")
             please_ahere()
             print("e.g.: -20.102852\n")
         elif variable_input == 'long_centroid':
@@ -93,7 +93,7 @@ def get_data(variable_input):
         elif variable_input == 'elev_b_spring_hs':
             pattern = RE_PATTERNS['four_digits']
             print("Please enter the elevation of the main stream start of the"
-                  "channel (spring) in meters.")
+                  " channel (spring) in meters.")
             please_ahere()
             print("e.g.: 1378\n")
         elif variable_input == 'elev_b_highest_p_hhp':
@@ -105,12 +105,12 @@ def get_data(variable_input):
         elif variable_input == 'urbanization_level_u':
             pattern = RE_PATTERNS['urb_degree']
             print("Please enter the urbanization level in the studied basin."
-                  "Limit the input to number assigned to")
-            print("degree of urbanization, according to the following values:")
-            print("1 - Low")
-            print("2 - Moderate")
-            print("3 - Consolidated")
-            print("4 - Highly Developed")
+                  " Limit the input to number assigned to"
+                  "degree of urbanization, according to the following values:\n"
+                   "1 - Low\n"
+                   "2 - Moderate\n"
+                   "3 - Consolidated\n"
+                   "4 - Highly Developed\n")
 
         data_str = input("Input the basin's data here:\n")
 
@@ -132,9 +132,9 @@ def validate_data(data, pattern, variable_input):
     elif data.lower() == 'exit':
         main()
     else:
-        print(f"Invalid input, {data} does not match the pattern")
-        print('If unsure, go back to "Main Menu > Instructions" to'
-              'better understand the data to be provided.'
+        print(f"Invalid input, {data} does not match the pattern."
+              'If unsure, go back to "Main Menu > Instructions" to'
+              ' better understand the data to be provided.\n'
               'You can also return to Main Menu by typping "exit"\n')
         get_data(variable_input)
         return False
@@ -149,7 +149,7 @@ def please_ahere():
     Returns a sentence used several times through data input.
     """
     print("Please adhere to the specified format of the example"
-          "with the exact number of digits.")
+          " with the exact number of digits.")
 
 
 def check_elevation():
@@ -170,14 +170,14 @@ def check_elevation():
     hhp = basin_variables['elev_b_highest_p_hhp']
 
     if ho < hs < hhp:
-        print('Elevation inputted data is consistent.\n')
-        print('Proceeding...\n')
+        print('Elevation inputted data is consistent.\n'
+              'Proceeding...\n')
         return True
     else:
-        print("The elevation data you entered is invalid.\n")
-        print("The outlet elevation must be inferior to the basin's"
-              " main channel initial point elevation.")
-        print("In addition, the latter has to be inferior to"
+        print("The elevation data you entered is invalid.\n"
+              "The outlet elevation must be inferior to the basin's"
+              " main channel initial point elevation.\n"
+              "In addition, the latter has to be inferior to"
               " the highest point in the basin.\n")
         re_enter_elevation()
         return False
@@ -191,14 +191,14 @@ def check_dimensional_data(var1, var2, vname_1, vname_2):
     print('Running some validations...\n')
 
     while ((var1 < (var2 *100)) and (var2 < (var1 *100))):
-        print('Basin dimensional inputted data is consistent.\n')
-        print('Proceeding...\n')
+        print('Basin dimensional inputted data is consistent.\n'
+              'Proceeding...\n')
         return True
     else:
         print("The dimensional data you entered" 
               " seems to be incorrect.\n")
         print(f"There's discrepancies in between {vname_1}"
-              f"and {vname_2}./n")
+              f" and {vname_2}./n")
         re_enter_dimensions('dimensional', ['var1', 'var2'], check_dimensional_data(var1, var2, vname_1, vname_2))
         return False
 
@@ -209,7 +209,8 @@ def re_enter_data(var_name, variables, check_function):
     detects a discrepancy. The user can also go back to the main menu.
     """
     while True:
-        user_input = input(f"Would you like to re-enter the {var_name} data? Enter Y or N.\n")
+        user_input = input(f"Would you like to re-enter the {var_name}" 
+                           f"data? Enter Y or N.\n")
         if user_input.lower() == 'y':
             print("\n")
             for variable in variables:
@@ -228,10 +229,14 @@ def main():
     """
     for key in basin_variables.keys():
         get_data(key)
+    
+    # get_data('elev_outlet_ho')
+    # get_data('elev_b_spring_hs')
+    # get_data('elev_b_highest_p_hhp')
 
     check_elevation()
 
-    check_dimensional_data()
+    # check_dimensional_data()
 
     print(basin_variables)
 
