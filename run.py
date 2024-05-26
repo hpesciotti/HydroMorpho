@@ -47,7 +47,7 @@ def get_data(variable_input):
     while True:
         if variable_input == 'basin_name':
             pattern = RE_PATTERNS['basin_naming']
-            print("Please enter the basin's name. Up to 25 lowercase
+            print("Please enter the basin's name. Up to 25 lowercase"
                   " characters and numbers are allowed.")
             print('As shown in the example, use the prefix "b_" and separate'
                   'words with the "_" underscore.')
@@ -183,6 +183,33 @@ def check_elevation():
         return False
 
 
+def check_dimensional_data():
+    """
+    Checks consistency of the dimensional variables.
+    """
+
+    print('Running some validations...\n')
+    
+    area_b = basin_variables['area_sqkm']
+    pmt_b = basin_variables['perimeter_km']
+    ls = basin_variables['main_length_ls']
+    lb = basin_variables['basin_length_lb']
+
+    while ((area_b < (pmt_b *100)) and (pmt_b < (area_b *100))
+          and (ls < (lb*100)) and (lb < (ls*100))):
+
+        print('Basin dimensional inputted data is consistent.\n')
+        print('Proceeding...\n')
+        return True
+    else:
+        print("The dimensional data you entered" 
+              " seems to be incorrect.\n")
+        print("There's discrepancies in between area and perimeter"
+              " or basin's length and main stream length.")
+        re_enter_dimensions()
+        return False
+
+
 def re_enter_elevation():
     """
     Allows the user to re-enter the elevation data after check_elevation
@@ -212,6 +239,8 @@ def main():
         get_data(key)
 
     check_elevation()
+
+    check_dimensional_data()
 
     print(basin_variables)
 
