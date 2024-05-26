@@ -203,20 +203,18 @@ def check_dimensional_data(var1, var2, vname_1, vname_2):
         return False
 
 
-def re_enter_elevation():
+def re_enter_data(var_name, variables, check_function):
     """
     Allows the user to re-enter the elevation data after check_elevation
     detects a discrepancy. The user can also go back to the main menu.
     """
     while True:
-        user_input = input("Would you like to re-enter the elevation data?"
-                           "Enter Y or N.\n")
+        user_input = input(f"Would you like to re-enter the {var_name} data? Enter Y or N.\n")
         if user_input.lower() == 'y':
             print("\n")
-            get_data('elev_outlet_ho')
-            get_data('elev_b_spring_hs')
-            get_data('elev_b_highest_p_hhp')
-            if check_elevation():
+            for variable in variables:
+                get_data(variable)
+            if check_function(): 
                 break
         elif user_input.lower() == 'n':
             main()
