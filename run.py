@@ -183,30 +183,23 @@ def check_elevation():
         return False
 
 
-def check_dimensional_data():
+def check_dimensional_data(var1, var2, vname_1, vname_2):
     """
     Checks consistency of the dimensional variables.
     """
 
     print('Running some validations...\n')
-    
-    area_b = basin_variables['area_sqkm']
-    pmt_b = basin_variables['perimeter_km']
-    ls = basin_variables['main_length_ls']
-    lb = basin_variables['basin_length_lb']
 
-    while ((area_b < (pmt_b *100)) and (pmt_b < (area_b *100))
-          and (ls < (lb*100)) and (lb < (ls*100))):
-
+    while ((var1 < (var2 *100)) and (var2 < (var1 *100))):
         print('Basin dimensional inputted data is consistent.\n')
         print('Proceeding...\n')
         return True
     else:
         print("The dimensional data you entered" 
               " seems to be incorrect.\n")
-        print("There's discrepancies in between area and perimeter"
-              " or basin's length and main stream length.")
-        re_enter_dimensions()
+        print(f"There's discrepancies in between {vname_1}"
+              f"and {vname_2}./n")
+        re_enter_dimensions('dimensional', ['var1', 'var2'], check_dimensional_data(var1, var2, vname_1, vname_2))
         return False
 
 
