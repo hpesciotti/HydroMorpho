@@ -179,7 +179,8 @@ def check_elevation():
               " main channel initial point elevation.\n"
               "In addition, the latter has to be inferior to"
               " the highest point in the basin.\n")
-        re_enter_elevation()
+        # print(f'{basin_variables['elev_outlet_ho']}, {basin_variables['elev_b_spring_hs']}, {basin_variables['elev_b_highest_p_hhp']}')
+        re_enter_data('elevation', ['elev_outlet_ho', 'elev_b_spring_hs', 'elev_b_highest_p_hhp'], check_elevation)
         return False
 
 
@@ -199,7 +200,7 @@ def check_dimensional_data(var1, var2, vname_1, vname_2):
               " seems to be incorrect.\n")
         print(f"There's discrepancies in between {vname_1}"
               f" and {vname_2}./n")
-        re_enter_dimensions('dimensional', ['var1', 'var2'], check_dimensional_data(var1, var2, vname_1, vname_2))
+        re_enter_data('dimensional', ['var1', 'var2'], check_dimensional_data(var1, var2, vname_1, vname_2))
         return False
 
 
