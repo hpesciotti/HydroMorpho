@@ -164,9 +164,9 @@ def check_elevation():
 
     print('Running some validations...\n')
 
-    ho = basin_variables['elev_outlet_ho']
-    hs = basin_variables['elev_b_spring_hs']
-    hhp = basin_variables['elev_b_highest_p_hhp']
+    ho = int(basin_variables['elev_outlet_ho'])
+    hs = int(basin_variables['elev_b_spring_hs'])
+    hhp = int(basin_variables['elev_b_highest_p_hhp'])
 
     if ho < hs < hhp:
         print('Elevation inputted data is consistent.\n'
@@ -179,29 +179,55 @@ def check_elevation():
               "In addition, the latter has to be inferior to"
               " the highest point in the basin.\n")
         # print(f'{basin_variables['elev_outlet_ho']}, {basin_variables['elev_b_spring_hs']}, {basin_variables['elev_b_highest_p_hhp']}')
-        re_enter_data('elevation', ['elev_outlet_ho', 'elev_b_spring_hs', 'elev_b_highest_p_hhp'], check_elevation)
+        re_enter_data('elevation', ['elev_outlet_ho', 
+        'elev_b_spring_hs', 'elev_b_highest_p_hhp'], check_elevation)
         return False
 
 
-def check_dimensional_data(var1, var2, vname_1, vname_2):
+# def check_dimensional_data(var1, var2, vname_1, vname_2):
+#     """
+#     Checks consistency of the dimensional variables.
+#     """
+
+#     print('Running some validations...\n')
+
+#     while ((var1 < (var2 *100)) and (var2 < (var1 *100))):
+#         print('Basin dimensional inputted data is consistent.\n'
+#               'Proceeding...\n')
+#         return True
+#     else:
+#         print("The dimensional data you entered" 
+#               " seems to be incorrect.\n")
+#         print(f"There's discrepancies in between {vname_1}"
+#               f" and {vname_2}.\n")
+#         re_enter_data('dimensional', ['var1', 'var2'], check_dimensional_data(var1, var2, vname_1, vname_2))
+#         return False
+
+
+def check_dimensional_data():
     """
     Checks consistency of the dimensional variables.
     """
 
     print('Running some validations...\n')
 
-    while ((var1 < (var2 *100)) and (var2 < (var1 *100))):
+    area_b = float(basin_variables['area_sqkm'])
+    pmt_b = float(basin_variables['perimeter_km'])
+    ls = float(basin_variables['main_length_ls'])
+    lb = float(basin_variables['basin_length_lb'])
+
+    if (((area_b < (pmt_b * 20)) and (pmt_b < (area_b * 20))
+        and (ls < (lb * 20)) and (lb < (ls * 20))) and
+        ((area_b != pmt_b) and (lb != ls))):
         print('Basin dimensional inputted data is consistent.\n'
               'Proceeding...\n')
         return True
     else:
-        print("The dimensional data you entered" 
-              " seems to be incorrect.\n")
-        print(f"There's discrepancies in between {vname_1}"
-              f" and {vname_2}./n")
-        re_enter_data('dimensional', ['var1', 'var2'], check_dimensional_data(var1, var2, vname_1, vname_2))
+        print("There's discrepancies in between area and perimeter"
+              " or basin's length and main stream length.\n")
+        re_enter_data('dimensional', ['area_sqkm', 'perimeter_km', 
+        'main_length_ls', 'basin_length_lb'], check_dimensional_data)
         return False
-
 
 def re_enter_data(var_name, variables, check_function):
     """
@@ -210,7 +236,7 @@ def re_enter_data(var_name, variables, check_function):
     """
     while True:
         user_input = input(f"Would you like to re-enter the {var_name}" 
-                           f" data? Enter Y or N.\n")
+                           f" data?\nEnter Y or N.\n")
         if user_input.lower() == 'y':
             print("\n")
             for variable in variables:
@@ -221,6 +247,7 @@ def re_enter_data(var_name, variables, check_function):
             main()
         else:
             print('Incorrect input. Please try again.')
+        break
 
 
 def main():
@@ -230,11 +257,16 @@ def main():
     # for key in basin_variables.keys():
     #     get_data(key)
     
-    # get_data('elev_outlet_ho')
-    # get_data('elev_b_spring_hs')
-    # get_data('elev_b_highest_p_hhp')
+    get_data('elev_outlet_ho')
+    get_data('elev_b_spring_hs')
+    get_data('elev_b_highest_p_hhp')
     get_data('urbanization_level_u')
     check_elevation()
+    
+    # get_data('area_sqkm')
+    # get_data('perimeter_km')
+    # get_data('main_length_ls')
+    # get_data('basin_length_lb')
 
     # check_dimensional_data()
 
