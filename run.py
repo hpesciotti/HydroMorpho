@@ -18,7 +18,7 @@ RE_PATTERNS = {
     'four_digits': r'^(?!0000$)\d{4}$',
     'three_digits': r'^(?!000\.000$)\d{3}\.\d{3}$',
     'basin_naming': r'^b_[a-z0-9_]{0,23}$',
-    'urb_degree': r'^0\.([0-9][1-9])$'
+    'urb_degree': r'^(?!0.00$)0\.([0-9][0-9])$'
 }
 
 # Basin Variables: object with provisory data before approval and
@@ -257,11 +257,11 @@ def main():
     # for key in basin_variables.keys():
     #     get_data(key)
     
-    get_data('elev_outlet_ho')
-    get_data('elev_b_spring_hs')
-    get_data('elev_b_highest_p_hhp')
+    # get_data('elev_outlet_ho')
+    # get_data('elev_b_spring_hs')
+    # get_data('elev_b_highest_p_hhp')
     get_data('urbanization_level_u')
-    check_elevation()
+    # check_elevation()
     
     # get_data('area_sqkm')
     # get_data('perimeter_km')
