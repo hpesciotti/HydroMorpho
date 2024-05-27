@@ -12,7 +12,6 @@ from terminaltables import AsciiTable, DoubleTable, SingleTable
 import gspread
 
 from google.oauth2.service_account import Credentials
-# from pprint import pprint
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,15 +22,18 @@ SCOPE = [
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('love_sandwiches')
+SHEET = GSPREAD_CLIENT.open('hydromorpho')
 
 
 # Checks if the API is working
-# sales = SHEET.worksheet('sales')
+v_data = SHEET.worksheet('v_data')
+f_data = SHEET.worksheet('f_data')
 
-# data = sales.get_all_values()
+v_data = v_data.get_all_values()
+f_data = f_data.get_all_values()
 
-# print(data)
+print(v_data)
+print(f_data)
 
 # Constants
 
@@ -364,4 +366,4 @@ def main():
     print(basin_variables)
 
 
-main()
+# main()
