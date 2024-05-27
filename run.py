@@ -9,6 +9,29 @@ import re
 
 from terminaltables import AsciiTable, DoubleTable, SingleTable
 
+import gspread
+
+from google.oauth2.service_account import Credentials
+# from pprint import pprint
+
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
+
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = GSPREAD_CLIENT.open('love_sandwiches')
+
+
+# Checks if the API is working
+# sales = SHEET.worksheet('sales')
+
+# data = sales.get_all_values()
+
+# print(data)
 
 # Constants
 
@@ -295,24 +318,24 @@ def print_table():
     print()
 
 
-def approve_transmit_data():
-    """
-    Approve data presente by the chart
-    """
-    while True:
-        user_input = input("Are the data correct? Would you like to proceed?\n"
-                           "Enter or N.\n")
-        if user_input.lower() == 'y':
-            print("\n")
-            for variable in variables:
-                get_data(variable)
-            if check_function(): 
-                break
-        elif user_input.lower() == 'n':
-            main()
-        else:
-            print('Incorrect input. Please try again.')
-        break
+# def approve_transmit_data():
+#     """
+#     Approve data presente by the chart
+#     """
+#     while True:
+#         user_input = input("Are the data correct? Would you like to proceed?\n"
+#                            "Enter or N.\n")
+#         if user_input.lower() == 'y':
+#             print("\n")
+#             for variable in variables:
+#                 get_data(variable)
+#             if check_function(): 
+#                 break
+#         elif user_input.lower() == 'n':
+#             main()
+#         else:
+#             print('Incorrect input. Please try again.')
+#         break
 
 
 
