@@ -1,10 +1,16 @@
+from __future__ import print_function
 
 # Importing Regular Expression - Regex to validate specific patterns
 # for morphometric validation of inputted data.
 import re
 
-# Constants
+# Importing terminal table
+# source: https://pypi.org/project/terminaltables/
 
+from terminaltables import AsciiTable, DoubleTable, SingleTable
+
+
+# Constants
 
 # For Regex, I used as fonts the following links:
 # How I found out about Regex: https://stackoverflow.com/questions/18632491/how-do-i-check-for-an-exact-word-or-phrase-in-a-string-in-python
@@ -250,25 +256,87 @@ def re_enter_data(var_name, variables, check_function):
         break
 
 
+def print_table():
+    """
+    Create table with the values enter by the user.
+    """
+    name_b = basin_variables['basin_name']
+    lat = basin_variables['lat_centroid']
+    longc = basin_variables['long_centroid'] # Long is a system name
+    area_b = float(basin_variables['area_sqkm'])
+    pmt_b = float(basin_variables['perimeter_km'])
+    ls = float(basin_variables['main_length_ls'])
+    lb = float(basin_variables['basin_length_lb'])
+    ho = int(basin_variables['elev_outlet_ho'])
+    hs = int(basin_variables['elev_b_spring_hs'])
+    hhp = int(basin_variables['elev_b_highest_p_hhp'])
+    urb = float(basin_variables['urbanization_level_u'])
+
+    table_data = (
+    ('Variables', 'Data'),
+    ('Basin Name', name_b),
+    ('Latitude', lat),
+    ('Longitude', longc),
+    ('Area', area_b),
+    ('Perimeter', pmt_b),
+    ('Main Stream Length', ls),
+    ('Basin Length', lb),
+    ('Outlet Elevation', ho),
+    ('Spring Elevation', hs),
+    ("Basin's Highest Point", hhp),
+    ('Urbanization Levle', urb)
+    )
+
+    table_title = "Basin Data"
+
+    table_instance = SingleTable(table_data, table_title)
+    table_instance.justify_columns[2] = "right"
+    print(table_instance.table)
+    print()
+
+
+def approve_transmit_data():
+    """
+    Approve data presente by the chart
+    """
+    while True:
+        user_input = input("Are the data correct? Would you like to proceed?\n"
+                           "Enter or N.\n")
+        if user_input.lower() == 'y':
+            print("\n")
+            for variable in variables:
+                get_data(variable)
+            if check_function(): 
+                break
+        elif user_input.lower() == 'n':
+            main()
+        else:
+            print('Incorrect input. Please try again.')
+        break
+
+
+
 def main():
     """
     Run the main functionalities of the app.
     """
-    # for key in basin_variables.keys():
-    #     get_data(key)
+    for key in basin_variables.keys():
+        get_data(key)
     
     # get_data('elev_outlet_ho')
     # get_data('elev_b_spring_hs')
     # get_data('elev_b_highest_p_hhp')
-    get_data('urbanization_level_u')
-    # check_elevation()
+    # get_data('urbanization_level_u')
+    check_elevation()
     
     # get_data('area_sqkm')
     # get_data('perimeter_km')
     # get_data('main_length_ls')
     # get_data('basin_length_lb')
 
-    # check_dimensional_data()
+    check_dimensional_data()
+
+    print_table()
 
     print(basin_variables)
 
