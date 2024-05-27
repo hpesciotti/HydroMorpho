@@ -18,7 +18,7 @@ RE_PATTERNS = {
     'four_digits': r'^(?!0000$)\d{4}$',
     'three_digits': r'^(?!000\.000$)\d{3}\.\d{3}$',
     'basin_naming': r'^b_[a-z0-9_]{0,23}$',
-    'urb_degree': r'^[1-4]$'
+    'urb_degree': r'^0\.([0-9][1-9])$'
 }
 
 # Basin Variables: object with provisory data before approval and
@@ -105,12 +105,11 @@ def get_data(variable_input):
         elif variable_input == 'urbanization_level_u':
             pattern = RE_PATTERNS['urb_degree']
             print("Please enter the urbanization level in the studied basin."
-                  " Limit the input to number assigned to"
-                  "degree of urbanization, according to the following values:\n"
-                   "1 - Low\n"
-                   "2 - Moderate\n"
-                   "3 - Consolidated\n"
-                   "4 - Highly Developed\n")
+                  " Degree of urbanization should be based on the ratio"                                          
+                  " urbanized area and the basin total area:\n"
+                  "u = urbanized area / basin total area.\n"
+                  "The input should vary from 0.01 to 0.99.\n"
+                  "e.g.: 0.64\n")
 
         data_str = input("Input the basin's data here:\n")
 
@@ -211,7 +210,7 @@ def re_enter_data(var_name, variables, check_function):
     """
     while True:
         user_input = input(f"Would you like to re-enter the {var_name}" 
-                           f"data? Enter Y or N.\n")
+                           f" data? Enter Y or N.\n")
         if user_input.lower() == 'y':
             print("\n")
             for variable in variables:
@@ -228,13 +227,13 @@ def main():
     """
     Run the main functionalities of the app.
     """
-    for key in basin_variables.keys():
-        get_data(key)
+    # for key in basin_variables.keys():
+    #     get_data(key)
     
     # get_data('elev_outlet_ho')
     # get_data('elev_b_spring_hs')
     # get_data('elev_b_highest_p_hhp')
-
+    get_data('urbanization_level_u')
     check_elevation()
 
     # check_dimensional_data()
