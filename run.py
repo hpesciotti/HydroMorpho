@@ -45,11 +45,7 @@ RE_PATTERNS = {
 v_data_sheet = SHEET.worksheet('v_data')
 f_data_sheet = SHEET.worksheet('f_data')
 
-def test():
-    var1= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    v_data_sheet.append_row(var1)
-
-test()
+returned_user_data = []
 
 # Basin Variables: object with provisory data before approval and
 # transition to Google Sheets
@@ -316,12 +312,28 @@ def approve_transfer_data():
                 transfer_data.append(values)
             v_data_sheet.append_row(transfer_data)
             break
-        elif user_input.lower() == 'n':
+        elif user_input.lower() == 'n' and 'exit':
             main()
         else:
             print('Incorrect input. Please try again.')
         break
 
+
+def compactness_coefficient():
+    """
+    Calculates Compactness coefficient (morphometric index) based on
+    values stored in v_data, and returns the results to f_data 
+    """
+    v_perimeter = 10
+    v_area = 20
+    pi_n = 3.141
+    
+    f_cc = v_perimeter / (2 * ((pi_n * v_area) ** 0.5))
+    
+    return f_cc
+
+result = compactness_coefficient()
+print("Compactness coefficient:", result)
 
 def main():
     """
