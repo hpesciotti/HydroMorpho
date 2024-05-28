@@ -25,13 +25,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('hydromorpho')
 
 
-# Checks if the API is working
-v_data = SHEET.worksheet('v_data')
-f_data = SHEET.worksheet('f_data')
-
-v_data = v_data.get_all_values()
-f_data = f_data.get_all_values()
-
 # Constants
 
 # For Regex, I used as fonts the following links:
@@ -48,6 +41,15 @@ RE_PATTERNS = {
     'basin_naming': r'^b_[a-z0-9_]{0,23}$',
     'urb_degree': r'^(?!0.00$)0\.([0-9][0-9])$'
 }
+
+v_data_sheet = SHEET.worksheet('v_data')
+f_data_sheet = SHEET.worksheet('f_data')
+
+def test():
+    var1= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    v_data_sheet.append_row(var1)
+
+test()
 
 # Basin Variables: object with provisory data before approval and
 # transition to Google Sheets
@@ -206,31 +208,10 @@ def check_elevation():
               " main channel initial point elevation.\n"
               "In addition, the latter has to be inferior to"
               " the highest point in the basin.\n")
-        # print(f'{basin_variables['elev_outlet_ho']}, {basin_variables['elev_b_spring_hs']}, {basin_variables['elev_b_highest_p_hhp']}')
         re_enter_data('elevation', ['elev_outlet_ho',
                       'elev_b_spring_hs', 'elev_b_highest_p_hhp'],
                       check_elevation)
         return False
-
-
-# def check_dimensional_data(var1, var2, vname_1, vname_2):
-#     """
-#     Checks consistency of the dimensional variables.
-#     """
-
-#     print('Running some validations...\n')
-
-#     while ((var1 < (var2 *100)) and (var2 < (var1 *100))):
-#         print('Basin dimensional inputted data is consistent.\n'
-#               'Proceeding...\n')
-#         return True
-#     else:
-#         print("The dimensional data you entered"
-#               " seems to be incorrect.\n")
-#         print(f"There's discrepancies in between {vname_1}"
-#               f" and {vname_2}.\n")
-#         re_enter_data('dimensional', ['var1', 'var2'], check_dimensional_data(var1, var2, vname_1, vname_2))
-#         return False
 
 
 def check_dimensional_data():
@@ -321,24 +302,25 @@ def print_table():
     print()
 
 
-# def approve_transmit_data():
-#     """
-#     Approve data presente by the chart
-#     """
-#     while True:
-#         user_input = input("Are the data correct? Would you like to proceed?\n"
-#                            "Enter or N.\n")
-#         if user_input.lower() == 'y':
-#             print("\n")
-#             for variable in variables:
-#                 get_data(variable)
-#             if check_function():
-#                 break
-#         elif user_input.lower() == 'n':
-#             main()
-#         else:
-#             print('Incorrect input. Please try again.')
-#         break
+def approve_transfer_data():
+    """
+    Approve data presented by the chart
+    """
+    while True:
+        user_input = input("Are the data correct? Would you like to proceed?\n"
+                           "Enter Y or N.\n")
+        if user_input.lower() == 'y':
+            print("\n")
+            transfer_data = []
+            for values in basin_variables.values():
+                transfer_data.append(values)
+            v_data_sheet.append_row(transfer_data)
+            break
+        elif user_input.lower() == 'n':
+            main()
+        else:
+            print('Incorrect input. Please try again.')
+        break
 
 
 def main():
@@ -352,18 +334,16 @@ def main():
     # get_data('elev_b_spring_hs')
     # get_data('elev_b_highest_p_hhp')
     # get_data('urbanization_level_u')
-    check_elevation()
-
     # get_data('area_sqkm')
     # get_data('perimeter_km')
     # get_data('main_length_ls')
     # get_data('basin_length_lb')
-
+    check_elevation()
     check_dimensional_data()
-
     print_table()
+    approve_transfer_data()
+    # print(basin_variables)
 
-    print(basin_variables)
 
 
 main()
