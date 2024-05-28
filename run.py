@@ -45,24 +45,39 @@ RE_PATTERNS = {
 v_data_sheet = SHEET.worksheet('v_data')
 f_data_sheet = SHEET.worksheet('f_data')
 
-returned_user_data = []
-
 # Basin Variables: object with provisory data before approval and
 # transition to Google Sheets
+# basin_variables = {
+#     'basin_name': [],
+#     'lat_centroid': [],
+#     'long_centroid': [],
+#     'area_sqkm': [],
+#     'perimeter_km': [],
+#     'main_length_ls': [],
+#     'basin_length_lb': [],
+#     'elev_outlet_ho': [],
+#     'elev_b_spring_hs': [],
+#     'elev_b_highest_p_hhp': [],
+#     'urbanization_level_u': [],
+# }
+
 basin_variables = {
-    'basin_name': [],
-    'lat_centroid': [],
-    'long_centroid': [],
-    'area_sqkm': [],
-    'perimeter_km': [],
-    'main_length_ls': [],
-    'basin_length_lb': [],
-    'elev_outlet_ho': [],
-    'elev_b_spring_hs': [],
-    'elev_b_highest_p_hhp': [],
-    'urbanization_level_u': [],
+    'basin_name': 1,
+    'lat_centroid': 2,
+    'long_centroid': 3,
+    'area_sqkm': 4,
+    'perimeter_km': 5,
+    'main_length_ls': 6,
+    'basin_length_lb': 7,
+    'elev_outlet_ho': 8,
+    'elev_b_spring_hs': 9,
+    'elev_b_highest_p_hhp': 10,
+    'urbanization_level_u': 11,
 }
 
+
+# Returned user data from Google Sheets
+returned_user_data = []
 
 # Method inspired by Code Institue's Love Sandwiches project
 def get_data(variable_input):
@@ -300,7 +315,7 @@ def print_table():
 
 def approve_transfer_data():
     """
-    Approve data presented by the chart
+    Approve data presented by the chart and return basin index number
     """
     while True:
         user_input = input("Are the data correct? Would you like to proceed?\n"
@@ -311,6 +326,11 @@ def approve_transfer_data():
             for values in basin_variables.values():
                 transfer_data.append(values)
             v_data_sheet.append_row(transfer_data)
+            user_basin_n = len(v_data_sheet.get_all_values())
+            print(f'All data sent with success! Your basin index' 
+                  f' number is "{user_basin_n}"\n'
+                   'Save this number, it will be used' 
+                   'in "2-Run Morphometric Indices"')
             break
         elif user_input.lower() == 'n' and 'exit':
             main()
@@ -318,43 +338,34 @@ def approve_transfer_data():
             print('Incorrect input. Please try again.')
         break
 
-
-def compactness_coefficient():
-    """
-    Calculates Compactness coefficient (morphometric index) based on
-    values stored in v_data, and returns the results to f_data 
-    """
-    v_perimeter = 10
-    v_area = 20
-    pi_n = 3.141
+#Morphometric Indices
+# def compactness_coefficient():
+#     """
+#     Calculates Compactness coefficient (morphometric index) based on
+#     values stored in v_data, and returns the results to f_data 
+#     """
+#     v_perimeter = 10
+#     v_area = 20
+#     pi_n = 3.141
     
-    f_cc = v_perimeter / (2 * ((pi_n * v_area) ** 0.5))
+#     f_cc = v_perimeter / (2 * ((pi_n * v_area) ** 0.5))
     
-    return f_cc
+#     return f_cc
 
-result = compactness_coefficient()
-print("Compactness coefficient:", result)
+
+
 
 def main():
     """
     Run the main functionalities of the app.
     """
-    for key in basin_variables.keys():
-        get_data(key)
+    # for key in basin_variables.keys():
+    #     get_data(key)
 
-    # get_data('elev_outlet_ho')
-    # get_data('elev_b_spring_hs')
-    # get_data('elev_b_highest_p_hhp')
-    # get_data('urbanization_level_u')
-    # get_data('area_sqkm')
-    # get_data('perimeter_km')
-    # get_data('main_length_ls')
-    # get_data('basin_length_lb')
-    check_elevation()
-    check_dimensional_data()
+    # check_elevation()
+    # check_dimensional_data()
     print_table()
     approve_transfer_data()
-    # print(basin_variables)
 
 
 
