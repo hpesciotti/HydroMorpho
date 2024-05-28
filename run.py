@@ -32,9 +32,6 @@ f_data = SHEET.worksheet('f_data')
 v_data = v_data.get_all_values()
 f_data = f_data.get_all_values()
 
-print(v_data)
-print(f_data)
-
 # Constants
 
 # For Regex, I used as fonts the following links:
@@ -369,4 +366,4 @@ def main():
     print(basin_variables)
 
 
-# main()
+main()
