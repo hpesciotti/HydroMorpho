@@ -62,7 +62,7 @@ f_data_sheet = SHEET.worksheet('f_data')
 # }
 
 basin_variables = {
-    'basin_name': 1,
+    'basin_name': 'b_river_test',
     'lat_centroid': 2,
     'long_centroid': 3,
     'area_sqkm': 4,
@@ -338,6 +338,38 @@ def approve_transfer_data():
             print('Incorrect input. Please try again.')
         break
 
+
+def validate_retrive():
+    """
+    Retrive user data for running morphometric indices.
+    The data is retrived from v_data sheet
+    """
+    max_rows_gsheets = 983
+    b_name_clm = 1
+    while True:
+        b_index = input("Please insert your basin index number\n")
+
+        if b_index.lower() == 'exit':
+            print("Exiting...")
+            return False
+
+        if b_index.isdigit():
+            if int(b_index) < max_rows_gsheets:
+                print("Format valid.\n")
+                print("Checking Database...\n")
+                b_name = v_data_sheet.cell(int(b_index), b_name_clm).value
+                if re.match(RE_PATTERNS['basin_naming'], str(b_name)):
+                    print("Retriving basin's data...\n")
+                else:
+                    print("There's no data with that basin index\n")
+                    validate_retrive()
+            break
+        else:
+            print('Incorrect input. Please try again.')
+            validate_retrive()
+        break
+
+
 #Morphometric Indices
 # def compactness_coefficient():
 #     """
@@ -353,8 +385,6 @@ def approve_transfer_data():
 #     return f_cc
 
 
-
-
 def main():
     """
     Run the main functionalities of the app.
@@ -364,9 +394,9 @@ def main():
 
     # check_elevation()
     # check_dimensional_data()
-    print_table()
-    approve_transfer_data()
-
+    # print_table()
+    # approve_transfer_data()
+    validate_retrive()
 
 
 main()
