@@ -136,7 +136,7 @@ def get_data(variable_input):
         elif variable_input == 'urbanization_level_u':
             pattern = RE_PATTERNS['urb_degree']
             print("Please enter the urbanization level in the studied basin."
-                  " Degree of urbanization should be based on the ratio"                                          
+                  " Degree of urbanization should be based on the ratio"
                   " urbanized area and the basin total area:\n"
                   "u = urbanized area / basin total area.\n"
                   "The input should vary from 0.01 to 0.99.\n"
@@ -210,8 +210,9 @@ def check_elevation():
               "In addition, the latter has to be inferior to"
               " the highest point in the basin.\n")
         # print(f'{basin_variables['elev_outlet_ho']}, {basin_variables['elev_b_spring_hs']}, {basin_variables['elev_b_highest_p_hhp']}')
-        re_enter_data('elevation', ['elev_outlet_ho', 
-        'elev_b_spring_hs', 'elev_b_highest_p_hhp'], check_elevation)
+        re_enter_data('elevation', ['elev_outlet_ho',
+                      'elev_b_spring_hs', 'elev_b_highest_p_hhp'],
+                      check_elevation)
         return False
 
 
@@ -227,7 +228,7 @@ def check_elevation():
 #               'Proceeding...\n')
 #         return True
 #     else:
-#         print("The dimensional data you entered" 
+#         print("The dimensional data you entered"
 #               " seems to be incorrect.\n")
 #         print(f"There's discrepancies in between {vname_1}"
 #               f" and {vname_2}.\n")
@@ -249,16 +250,18 @@ def check_dimensional_data():
 
     if (((area_b < (pmt_b * 20)) and (pmt_b < (area_b * 20))
         and (ls < (lb * 20)) and (lb < (ls * 20))) and
-        ((area_b != pmt_b) and (lb != ls))):
+       ((area_b != pmt_b) and (lb != ls))):
         print('Basin dimensional inputted data is consistent.\n'
               'Proceeding...\n')
         return True
     else:
         print("There's discrepancies in between area and perimeter"
               " or basin's length and main stream length.\n")
-        re_enter_data('dimensional', ['area_sqkm', 'perimeter_km', 
-        'main_length_ls', 'basin_length_lb'], check_dimensional_data)
+        re_enter_data('dimensional', ['area_sqkm', 'perimeter_km',
+                      'main_length_ls', 'basin_length_lb'],
+                      check_dimensional_data)
         return False
+
 
 def re_enter_data(var_name, variables, check_function):
     """
@@ -266,13 +269,13 @@ def re_enter_data(var_name, variables, check_function):
     detects a discrepancy. The user can also go back to the main menu.
     """
     while True:
-        user_input = input(f"Would you like to re-enter the {var_name}" 
+        user_input = input(f"Would you like to re-enter the {var_name}"
                            f" data?\nEnter Y or N.\n")
         if user_input.lower() == 'y':
             print("\n")
             for variable in variables:
                 get_data(variable)
-            if check_function(): 
+            if check_function():
                 break
         elif user_input.lower() == 'n':
             main()
@@ -287,7 +290,8 @@ def print_table():
     """
     name_b = basin_variables['basin_name']
     lat = basin_variables['lat_centroid']
-    longc = basin_variables['long_centroid'] # Long is a system name
+    # Long is a system name
+    longc = basin_variables['long_centroid']
     area_b = float(basin_variables['area_sqkm'])
     pmt_b = float(basin_variables['perimeter_km'])
     ls = float(basin_variables['main_length_ls'])
@@ -298,19 +302,19 @@ def print_table():
     urb = float(basin_variables['urbanization_level_u'])
 
     table_data = (
-    ('Variables', 'Data'),
-    ('Basin Name', name_b),
-    ('Latitude', lat),
-    ('Longitude', longc),
-    ('Area', area_b),
-    ('Perimeter', pmt_b),
-    ('Main Stream Length', ls),
-    ('Basin Length', lb),
-    ('Outlet Elevation', ho),
-    ('Spring Elevation', hs),
-    ("Basin's Highest Point", hhp),
-    ('Urbanization Levle', urb)
-    )
+                   ('Variables', 'Data'),
+                   ('Basin Name', name_b),
+                   ('Latitude', lat),
+                   ('Longitude', longc),
+                   ('Area', area_b),
+                   ('Perimeter', pmt_b),
+                   ('Main Stream Length', ls),
+                   ('Basin Length', lb),
+                   ('Outlet Elevation', ho),
+                   ('Spring Elevation', hs),
+                   ("Basin's Highest Point", hhp),
+                   ('Urbanization Levle', urb)
+                   )
 
     table_title = "Basin Data"
 
@@ -331,7 +335,7 @@ def print_table():
 #             print("\n")
 #             for variable in variables:
 #                 get_data(variable)
-#             if check_function(): 
+#             if check_function():
 #                 break
 #         elif user_input.lower() == 'n':
 #             main()
@@ -340,20 +344,19 @@ def print_table():
 #         break
 
 
-
 def main():
     """
     Run the main functionalities of the app.
     """
     for key in basin_variables.keys():
         get_data(key)
-    
+
     # get_data('elev_outlet_ho')
     # get_data('elev_b_spring_hs')
     # get_data('elev_b_highest_p_hhp')
     # get_data('urbanization_level_u')
     check_elevation()
-    
+
     # get_data('area_sqkm')
     # get_data('perimeter_km')
     # get_data('main_length_ls')
