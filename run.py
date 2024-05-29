@@ -407,6 +407,7 @@ def get_user_basin_data():
     Center all the functions involved on collectiong the user 
     basin data.
     """
+    clear_screen()
     for key in basin_variables.keys():
         get_data(key)
     clear_screen()
@@ -519,6 +520,7 @@ def run_morphometric_indices():
     This function aggregates the all the functions / steps
     involving the run morphometric indices main feat.
     """
+    clear_screen()
     validate_retrive()
     clear_screen()
     morphometric_indices()
@@ -545,6 +547,7 @@ def instructions():
     Displays basic intructions to collect the necessary data
     to be user as input for the app.
     """
+    clear_screen()
     print("Beforehand, the user needs to collect data on relief,\n"
           "including linear and areal features. This can be done\n"
           "in various ways, such as consulting a topographic map\n"
@@ -587,6 +590,7 @@ def about():
     """
     Displays the basic information about the web application.
     """
+    clear_screen()
     print("The analysis of morphometric parameters is essential for\n"
           "understanding and managing watersheds, making it a fundamental\n"
           "component of hydrological investigations.\n" 
