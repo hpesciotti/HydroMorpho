@@ -290,7 +290,7 @@ def re_enter_data(var_name, variables, check_function):
         break
 
 
-def print_table():
+def print_input_data_table():
     """
     Create table with the values enter by the user.
     """
@@ -342,7 +342,7 @@ def get_user_basin_data():
 
     check_dimensional_data()
 
-    print_table()
+    print_input_data_table()
 
 
 def approve_transfered_data():
@@ -454,23 +454,26 @@ def morphometric_indices():
     print("Input Variables:", all_vb)
 
     # Average Slope
-    avg_slope = (
+    avg_raw_slope = (
         (elev_spring_hs - elev_outlet_ho) / (main_length_ls * 1000)
     ) * 100
+    avg_slope = round(avg_raw_slope, 2)
 
     # Compactness Coefficient
-    result_cc = perimeter / (2 * ((pi_n * area) ** 0.5))
+    result_cc = round(perimeter / (2 * ((pi_n * area) ** 0.5)), 2)
 
     # Form Factor
-    result_ff = area / (basin_length_lb ** 2)
+    result_ff = round(area / (basin_length_lb ** 2), 2)
 
     # Elongation Ratio
-    result_re = (2 * ((area / pi_n) ** 0.5)) / basin_length_lb
+    result_re = round(((2 * ((area / pi_n) ** 0.5)) / basin_length_lb), 2)
 
     # Time of Concentration
-    result_tc = 0.3 * ((main_length_ls / (avg_slope ** 0.25)) ** 0.76)
-    tcf_denominator = (1 + (3 * (pi_n * (2 - urbanization)) ** 0.5))
-    result_tcf = result_tc / tcf_denominator
+    raw_tc = 0.3 * ((main_length_ls / (avg_slope ** 0.25)) ** 0.76)
+    result_tc = round((raw_tc * 60), 2)
+    tcf_denominator = 1 + (3 * (pi_n * (2 - urbanization)) ** 0.5)
+    result_tcf = raw_tc / tcf_denominator
+    result_tcf = round((result_tcf * 60), 2)
 
     # Relative Relief
     result_rr = elev_highest_hhp - elev_outlet_ho
@@ -504,6 +507,7 @@ def morphometric_indices():
         description_re = "circular"
 
     all_results = [
+        basin_name,
         result_cc, 
         description_cc, 
         result_ff, 
@@ -511,11 +515,14 @@ def morphometric_indices():
         result_re,
         description_re,
         result_tc, 
-        result_tcf.value, 
+        result_tcf, 
         result_rr
     ]
-    print("Calculated Indices:", all_results)
     
+    f_data_sheet.append_row(all_results)
+    
+    print(all_results)
+
     return all_results
 
 
@@ -525,8 +532,6 @@ def run_morphometric_indices():
     involving the run morphometric indices main feat.
     """
     validate_retrive()
-    urb = returned_user_data[10]
-    print(returned_user_data)
     morphometric_indices()
 
 
