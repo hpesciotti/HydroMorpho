@@ -434,7 +434,7 @@ def run_morphometric_indices():
     validate_retrive()
     print(returned_user_data)
 
-
+# Inspired by Amy Richardson BakeStock PP3 project
 def main():
     """
     Displays the main menu with options for users to 
@@ -446,20 +446,24 @@ def main():
     print("1. Inser Basin Data\n")
     print("2. Run Morphometric Indices\n")
     print("3. Instructions\n")
-    print("4. Exit\n")
+    print("4. About\n")
+    print("5. Exit\n")
     while True:
         try:
-            choice = int(typeInput("Enter a number for the desired feature: \n"))
+            choice = int(input("Enter a number for the desired feature: \n"))
             if choice == 1:
                 get_user_basin_data()
                 break
             elif choice == 2:
-                check_batch()
+                run_morphometric_indices()
                 break
             elif choice == 3:
                 check_invt()
                 break
             elif choice == 4:
+                exit()
+                break
+            elif choice == 5:
                 exit()
                 break
         except ValueError:
