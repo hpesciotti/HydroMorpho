@@ -535,6 +535,7 @@ def return_main():
         print("\n")
         choice = input("To return to Main Menu, please enter 'exit'.\n")
         if choice.lower() == 'exit':
+            clear_screen()
             main()
             break
         else:
