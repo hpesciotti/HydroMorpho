@@ -318,21 +318,6 @@ def print_input_data_table():
     print()
 
 
-def get_user_basin_data():
-    """
-    Center all the functions involved on collectiong the user 
-    basin data.
-    """
-    for key in basin_variables.keys():
-        get_data(key)
-
-    check_elevation()
-
-    check_dimensional_data()
-
-    print_input_data_table()
-
-
 def approve_transfered_data():
     """
     Approve data presented by the chart and return basin index number
@@ -351,12 +336,12 @@ def approve_transfered_data():
             print(f'All data sent with success! Your basin index' 
                   f' number is "{user_basin_n}"\n'
                    'Save this number, it will be used' 
-                   'in "2-Run Morphometric Indices"')
+                   'in "2-Run Morphometric Indices"\n')
             break
         elif user_input.lower() == 'n' and 'exit':
             main()
         else:
-            print('Incorrect input. Please try again.')
+            print('Incorrect input. Please try again.\n')
         break
 
 
@@ -391,7 +376,7 @@ def validate_retrive():
                     validate_retrive()
             break
         else:
-            print('Incorrect input. Please try again.')
+            print('Incorrect input. Please try again.\n')
             validate_retrive()
         break
 
@@ -404,17 +389,32 @@ def approve_retrieved_data():
     b_name = returned_user_data[0]
     print('Type Y to confirm or N pick another basin'
           ' index number. You can also escape to '
-          'main menu by entering "exit"' )
+          'main menu by entering "exit"\n' )
     user_input = input(f"Is {b_name} the desired basin?\n")
     while True:
         if user_input.lower() == 'y':
-            print('Running Morphometric Indices...')
+            print('Running Morphometric Indices...\n')
             break
         elif user_input.lower() == 'n' and 'exit':
             validate_retrive()
         else:
-            print('Incorrect input. Please try again.')
+            print('Incorrect input. Please try again.\n')
         break
+
+
+def get_user_basin_data():
+    """
+    Center all the functions involved on collectiong the user 
+    basin data.
+    """
+    for key in basin_variables.keys():
+        get_data(key)
+    clear_screen()
+    check_elevation()
+    clear_screen()
+    check_dimensional_data()
+    clear_screen()
+    print_input_data_table()
 
 
 # Morphometric Indices
@@ -520,6 +520,7 @@ def run_morphometric_indices():
     involving the run morphometric indices main feat.
     """
     validate_retrive()
+    clear_screen()
     morphometric_indices()
 
 
