@@ -430,18 +430,94 @@ def approve_retrieved_data():
 
 
 # Morphometric Indices
-# def compactness_coefficient_cc():
-#     """
-#     Calculates Compactness Coefficient (morphometric index) based on
-#     values stored in v_data, and returns the results to f_data 
-#     """
-#     v_perimeter = 10
-#     v_area = 20
-#     pi_n = 3.141
+def morphometric_indices():
+    """
+    Calculates morphometric indices based on
+    values stored in returned_user_data, and returns the results.
+    """
+    # Variables
+    pi_n = 3.141
+    basin_name = returned_user_data[0]
+    area = float(returned_user_data[3])
+    perimeter = float(returned_user_data[4])
+    main_length_ls = float(returned_user_data[5])
+    basin_length_lb = float(returned_user_data[6])
+    elev_outlet_ho = float(returned_user_data[7])
+    elev_spring_hs = float(returned_user_data[8])
+    elev_highest_hhp = float(returned_user_data[9])
+    urbanization = float(returned_user_data[10])
+
+    all_vb = [
+        basin_name, area, perimeter, main_length_ls, basin_length_lb,
+        elev_outlet_ho, elev_spring_hs, elev_highest_hhp, urbanization
+    ]
+    print("Input Variables:", all_vb)
+
+    # Average Slope
+    avg_slope = (
+        (elev_spring_hs - elev_outlet_ho) / (main_length_ls * 1000)
+    ) * 100
+
+    # Compactness Coefficient
+    result_cc = perimeter / (2 * ((pi_n * area) ** 0.5))
+
+    # Form Factor
+    result_ff = area / (basin_length_lb ** 2)
+
+    # Elongation Ratio
+    result_re = (2 * ((area / pi_n) ** 0.5)) / basin_length_lb
+
+    # Time of Concentration
+    result_tc = 0.3 * ((main_length_ls / (avg_slope ** 0.25)) ** 0.76)
+    tcf_denominator = (1 + (3 * (pi_n * (2 - urbanization)) ** 0.5))
+    result_tcf = result_tc / tcf_denominator
+
+    # Relative Relief
+    result_rr = elev_highest_hhp - elev_outlet_ho
+
+    # Form Factor Classification
+    if result_ff < 0.5:
+        description_ff = "basin not prone to floods events"
+    elif 0.5 <= result_ff < 0.75:
+        description_ff = "basin with medium tendency to floods events"
+    else:
+        description_ff = "basin prone to floods events"
+
+    # Compactness Coefficient Classification
+    if result_cc > 1.5:
+        description_cc = "basin not prone to large floods"
+    elif 1.25 < result_cc <= 1.5:
+        description_cc = "basin with medium tendency to large floods"
+    else:
+        description_cc = "basin with high propensity for large floods"
     
-#     result_cc = v_perimeter / (2 * ((pi_n * v_area) ** 0.5))
+    # Elongation Ratio Classification
+    if result_re < 0.5:
+        description_re = "more elongated"
+    elif 0.5 <= result_re < 0.7:
+        description_re = "elongated"
+    elif 0.7 <= result_re < 0.8:
+        description_re = "less elongated"
+    elif 0.8 <= result_re < 0.9:
+        description_re = "oval"
+    else:
+        description_re = "circular"
+
+    all_results = [
+        result_cc, 
+        description_cc, 
+        result_ff, 
+        description_ff,
+        result_re,
+        description_re,
+        result_tc, 
+        result_tcf.value, 
+        result_rr
+    ]
+    print("Calculated Indices:", all_results)
     
-#     return f_cc
+    return all_results
+
 
 def run_morphometric_indices():
     """
@@ -449,7 +525,10 @@ def run_morphometric_indices():
     involving the run morphometric indices main feat.
     """
     validate_retrive()
+    urb = returned_user_data[10]
     print(returned_user_data)
+    morphometric_indices()
+
 
 
 def return_main():
