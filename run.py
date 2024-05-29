@@ -76,7 +76,7 @@ basin_variables = {
 }
 
 
-# Returned user data from Google Sheets
+# Returned user data from Google Sheets used on item 2
 returned_user_data = []
 
 # Method inspired by Code Institue's Love Sandwiches project
@@ -318,7 +318,8 @@ def approve_transfer_data():
     Approve data presented by the chart and return basin index number
     """
     while True:
-        user_input = input("Are the data correct? Would you like to proceed?\n"
+        user_input = input("Are the data correct? Would you like" 
+                           " to proceed?\n"
                            "Enter Y or N.\n")
         if user_input.lower() == 'y':
             print("\n")
@@ -344,6 +345,7 @@ def validate_retrive():
     Retrive user data for running morphometric indices.
     The data is retrived from v_data sheet
     """
+    global returned_user_data
     max_rows_gsheets = 983
     b_name_clm = 1
     while True:
@@ -355,11 +357,15 @@ def validate_retrive():
 
         if b_index.isdigit():
             if int(b_index) < max_rows_gsheets:
-                print("Format valid.\n")
+                print("Format is valid.\n")
                 print("Checking Database...\n")
                 b_name = v_data_sheet.cell(int(b_index), b_name_clm).value
                 if re.match(RE_PATTERNS['basin_naming'], str(b_name)):
                     print("Retriving basin's data...\n")
+                    returned_user_data = v_data_sheet.row_values(int(b_index))
+                    aprove_data_retrieved()
+                    return returned_user_data
+                    print(returned_user_data)
                 else:
                     print("There's no data with that basin index\n")
                     validate_retrive()
@@ -370,10 +376,29 @@ def validate_retrive():
         break
 
 
-#Morphometric Indices
+def aprove_data_retrieved():
+    """
+    """
+    b_name = returned_user_data[0]
+    print('Type Y to confirm or N pick another basin'
+          ' index number. You can also escape to '
+          'main menu by entering "exit"' )
+    user_input = input(f"Is {b_name} the desired basin?\n")
+    while True:
+        if user_input.lower() == 'y':
+            print('Running Morphometric Indices...')
+            break
+        elif user_input.lower() == 'n' and 'exit':
+            validate_retrive()
+        else:
+            print('Incorrect input. Please try again.')
+        break
+
+
+# Morphometric Indices
 # def compactness_coefficient():
 #     """
-#     Calculates Compactness coefficient (morphometric index) based on
+#     Calculates Compactness Coefficient (morphometric index) based on
 #     values stored in v_data, and returns the results to f_data 
 #     """
 #     v_perimeter = 10
@@ -397,6 +422,8 @@ def main():
     # print_table()
     # approve_transfer_data()
     validate_retrive()
+    print(returned_user_data)
+    print('deu certo!')
 
 
 main()
