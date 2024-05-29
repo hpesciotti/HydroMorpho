@@ -12,6 +12,70 @@
     <style>
         body {
             font-family: Arial;
+	        margin: 0;
+	        width: 100vw;
+	        height: 100vh;
+        }
+
+        .wrapper {
+	        width: 100vw;
+	        height: 100vh;
+	        display: flex;
+	        flex-direction: column;
+	        justify-content: flex-start
+
+        }
+
+        #button {
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        button {
+            font-weight: bold;
+            width: 200px;
+            height: 40px;
+            background-color: #b7e0dc;
+            border: 2px solid #153c48;
+            color: #20596c;
+            text-transform: uppercase;
+            margin: 25px auto;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #153c48;
+            color: #b7e0dc;
+            border: 2px solid #b7e0dc;
+        }
+
+        #terminal {
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+	        position: fixed;
+	        bottom: 0;
+	        width: 100%;
+	        text-align: center;
+	        background-color: #153c48;
+	        height: 50px;
+	        color: #f1f4f5;
+        }
+
+        .social-icons {
+	        color: #f1f4f5;
+	        font-size: 2rem;
+	        padding: 10px;
+	        margin-bottom: 10px;
+        }
+
+        .social-icons:hover {
+	    color: #b7e0dc;
         }
 
         /**
@@ -153,17 +217,6 @@
 
         .xterm-underline {
             text-decoration: underline;
-        }
-
-        button {
-            width: 200px;
-            height: 40px;
-            background-color: #E84610;
-            border: 1px solid grey;
-            color: white;
-            text-transform: uppercase;
-            margin: 10px;
-            border-radius: 8px;
         }
     </style>
 </head>
