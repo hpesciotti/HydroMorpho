@@ -4,6 +4,14 @@ from __future__ import print_function
 # for morphometric validation of inputted data.
 import re
 
+# Importing os library for clear screen
+# Inspired by Amy Richardson PP3 project 
+import os
+
+# Importing os library for clear screen
+# Inspired by Amy Richardson PP3 project
+import time,sys
+
 # Importing terminal table
 # source: https://pypi.org/project/terminaltables/
 
@@ -78,6 +86,15 @@ basin_variables = {
 
 # Returned user data from Google Sheets used on item 2
 returned_user_data = []
+
+# Credit: Amy Richardson PP3 
+# https://www.101computing.net/python-typing-text-effect/
+def clear_screen():
+    """
+    Clears the screen from previous outputs and inputs
+    """
+    os.system("clear")
+
 
 # Inspired by Code Institue's Love Sandwiches project
 def get_data(variable_input):
@@ -455,26 +472,24 @@ def about():
     Displays the main menu with options for users to 
     choose the application's functionalities.
     """
-    print("The analysis of morphometric parameters is essential for "
-          "understanding and managing watersheds, making it a fundamental "
+    print("The analysis of morphometric parameters is essential for\n"
+          "understanding and managing watersheds, making it a fundamental\n"
           "component of hydrological investigations.\n" 
-
-          "This application provides a quick and accessible tool for"
-          " obtaining hydrological "
-          "and geomorphological morphometric parameters using collected "
-          "data on relief, linear, and areal features.\n"
-
-          "Through a variety of scientifically renowned methods,"
-          "this application offers an "
-          "overview of a basin's hydrological behavior, particularly "
-          "regarding flood propensity.\n"
-
-          "It caters to the needs of students,hydrology and" 
-          "geomorphology professionals, and the community, "
-          "addressing the evolving demands of planning for"
-          " climate-related disasters.")
-    return_main()
-    
+          "\n"
+          "This application provides a quick and accessible tool\n"
+          "for obtaining hydrological and geomorphological \n"
+          "morphometric parameters using collected data on relief,\n"
+          "linear, and areal features.\n"
+          "\n"
+          "Through a variety of scientifically renowned methods,\n"
+          "this application offers an overview of a basin's\n"
+          "hydrological behavior, particularly regarding flood\n"
+          "propensity.\n"
+          "\n"
+          "It caters to the needs of students,hydrology and\n" 
+          "geomorphology professionals, and the community, addressing\n"
+          "the evolving demands of planning for climate-related disasters.\n")
+    return_main()  
 
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
@@ -485,7 +500,7 @@ def main():
     print("_____WELCOME__TO__HYDROMORPHO_____\n")
     print('\n')
     print("Please choose from the options below.\n")
-    print("1. Inser Basin Data\n")
+    print("1. Insert Basin Data\n")
     print("2. Run Morphometric Indices\n")
     print("3. Instructions\n")
     print("4. About\n")
