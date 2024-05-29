@@ -617,6 +617,8 @@ def main():
     Displays the main menu with options for users to 
     choose the application's functionalities.
     """
+    print('\n')
+    print('\n')
     print("_____WELCOME__TO__HYDROMORPHO_____\n")
     print('\n')
     print("Please choose from the options below.\n")
