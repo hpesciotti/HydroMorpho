@@ -319,7 +319,7 @@ def print_table():
                    ('Outlet Elevation', ho),
                    ('Spring Elevation', hs),
                    ("Basin's Highest Point", hhp),
-                   ('Urbanization Levle', urb)
+                   ('Urbanization Level', urb)
                    )
 
     table_title = "Basin Data"
@@ -467,10 +467,52 @@ def return_main():
             continue
 
 
+def instructions():
+    """
+    Displays basic intructions to collect the necessary data
+    to be user as input for the app.
+    """
+    print("Beforehand, the user needs to collect data on relief,\n"
+          "including linear and areal features. This can be done\n"
+          "in various ways, such as consulting a topographic map\n"
+          "or using a Geographic Information System (GIS).\n"
+          "For users less familiar with GIS, it is recommended to\n"
+          "use Google Earth Pro. The pro version allows users to\n"
+          "draw the basin/watershed and obtain the necessary metrics\n"
+          "to input into the app.\n"
+          "\n"
+          "The required inputs are:\n"
+          "Latitude of the basin's centroid\n"
+          "\n"
+          "Longitude of the basin's centroid\n"
+          "\n"
+          "Basin area in km² (with 3 significant digits after the decimal\n"
+          "point)\n"
+          "\n"
+          "Basin perimeter in km (with 3 significant digits after the\n"
+          "decimal point)\n"
+          "\n"
+          "Main stream length in km (with 3 significant digits after\n"
+          "the decimal point)\n"
+          "\n"
+          "Basin length, from the furthest point of the basin to\n"
+          "the other, with 3 significant digits\n"
+          "\n"
+          "Main stream outlet elevation in meters\n"
+          "\n"
+          "Spring elevation, the starting point of the main stream,\n"
+          "in meters\n"
+          "\n"
+          "Basin's highest point in meters\n"
+          "\n"
+          "An estimate Urbanization level as a percentage of\n" 
+          "constructed area\n")
+    return_main()
+
+
 def about():
     """
-    Displays the main menu with options for users to 
-    choose the application's functionalities.
+    Displays the basic information about the web application.
     """
     print("The analysis of morphometric parameters is essential for\n"
           "understanding and managing watersheds, making it a fundamental\n"
@@ -489,7 +531,7 @@ def about():
           "It caters to the needs of students,hydrology and\n" 
           "geomorphology professionals, and the community, addressing\n"
           "the evolving demands of planning for climate-related disasters.\n")
-    return_main()  
+    return_main()   
 
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
@@ -515,7 +557,7 @@ def main():
                 run_morphometric_indices()
                 break
             elif choice == 3:
-                check_invt()
+                instructions()
                 break
             elif choice == 4:
                 about()
