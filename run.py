@@ -434,6 +434,48 @@ def run_morphometric_indices():
     validate_retrive()
     print(returned_user_data)
 
+
+def return_main():
+    """
+    Returns to main menu option through 'exit' input.
+    """
+    while True:
+        print("\n")
+        choice = input("To return to Main Menu, please enter 'exit'.\n")
+        if choice.lower() == 'exit':
+            main()
+            break
+        else:
+            print("Invalid input, please try again.")
+            continue
+
+
+def about():
+    """
+    Displays the main menu with options for users to 
+    choose the application's functionalities.
+    """
+    print("The analysis of morphometric parameters is essential for "
+          "understanding and managing watersheds, making it a fundamental "
+          "component of hydrological investigations.\n" 
+
+          "This application provides a quick and accessible tool for"
+          " obtaining hydrological "
+          "and geomorphological morphometric parameters using collected "
+          "data on relief, linear, and areal features.\n"
+
+          "Through a variety of scientifically renowned methods,"
+          "this application offers an "
+          "overview of a basin's hydrological behavior, particularly "
+          "regarding flood propensity.\n"
+
+          "It caters to the needs of students,hydrology and" 
+          "geomorphology professionals, and the community, "
+          "addressing the evolving demands of planning for"
+          " climate-related disasters.")
+    return_main()
+    
+
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
     """
@@ -461,7 +503,7 @@ def main():
                 check_invt()
                 break
             elif choice == 4:
-                exit()
+                about()
                 break
             elif choice == 5:
                 exit()
