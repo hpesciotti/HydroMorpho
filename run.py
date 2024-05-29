@@ -50,37 +50,25 @@ RE_PATTERNS = {
     'urb_degree': r'^(?!0.00$)0\.([0-9][0-9])$'
 }
 
+
+# Variables
 v_data_sheet = SHEET.worksheet('v_data')
 f_data_sheet = SHEET.worksheet('f_data')
 
 # Basin Variables: object with provisory data before approval and
 # transition to Google Sheets
-# basin_variables = {
-#     'basin_name': [],
-#     'lat_centroid': [],
-#     'long_centroid': [],
-#     'area_sqkm': [],
-#     'perimeter_km': [],
-#     'main_length_ls': [],
-#     'basin_length_lb': [],
-#     'elev_outlet_ho': [],
-#     'elev_b_spring_hs': [],
-#     'elev_b_highest_p_hhp': [],
-#     'urbanization_level_u': [],
-# }
-
 basin_variables = {
-    'basin_name': 'b_river_test',
-    'lat_centroid': 2,
-    'long_centroid': 3,
-    'area_sqkm': 4,
-    'perimeter_km': 5,
-    'main_length_ls': 6,
-    'basin_length_lb': 7,
-    'elev_outlet_ho': 8,
-    'elev_b_spring_hs': 9,
-    'elev_b_highest_p_hhp': 10,
-    'urbanization_level_u': 11,
+    'basin_name': [],
+    'lat_centroid': [],
+    'long_centroid': [],
+    'area_sqkm': [],
+    'perimeter_km': [],
+    'main_length_ls': [],
+    'basin_length_lb': [],
+    'elev_outlet_ho': [],
+    'elev_b_spring_hs': [],
+    'elev_b_highest_p_hhp': [],
+    'urbanization_level_u': [],
 }
 
 
