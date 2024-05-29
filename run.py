@@ -79,7 +79,7 @@ basin_variables = {
 # Returned user data from Google Sheets used on item 2
 returned_user_data = []
 
-# Method inspired by Code Institue's Love Sandwiches project
+# Inspired by Code Institue's Love Sandwiches project
 def get_data(variable_input):
     """
     Get the basin data inputed by the user
@@ -313,7 +313,22 @@ def print_table():
     print()
 
 
-def approve_transfer_data():
+def get_user_basin_data():
+    """
+    Center all the functions involved on collectiong the user 
+    basin data.
+    """
+    for key in basin_variables.keys():
+        get_data(key)
+
+    check_elevation()
+
+    check_dimensional_data()
+
+    print_table()
+
+
+def approve_transfered_data():
     """
     Approve data presented by the chart and return basin index number
     """
@@ -363,7 +378,7 @@ def validate_retrive():
                 if re.match(RE_PATTERNS['basin_naming'], str(b_name)):
                     print("Retriving basin's data...\n")
                     returned_user_data = v_data_sheet.row_values(int(b_index))
-                    aprove_data_retrieved()
+                    approve_retrieved_data()
                     return returned_user_data
                     print(returned_user_data)
                 else:
@@ -376,8 +391,10 @@ def validate_retrive():
         break
 
 
-def aprove_data_retrieved():
+def approve_retrieved_data():
     """
+    Allows to user to validate fetched data from v_data by returning 
+    the basin name. If not valid the user can try other entries.
     """
     b_name = returned_user_data[0]
     print('Type Y to confirm or N pick another basin'
@@ -396,7 +413,7 @@ def aprove_data_retrieved():
 
 
 # Morphometric Indices
-# def compactness_coefficient():
+# def compactness_coefficient_cc():
 #     """
 #     Calculates Compactness Coefficient (morphometric index) based on
 #     values stored in v_data, and returns the results to f_data 
@@ -405,25 +422,50 @@ def aprove_data_retrieved():
 #     v_area = 20
 #     pi_n = 3.141
     
-#     f_cc = v_perimeter / (2 * ((pi_n * v_area) ** 0.5))
+#     result_cc = v_perimeter / (2 * ((pi_n * v_area) ** 0.5))
     
 #     return f_cc
+
+def run_morphometric_indices():
+    """
+    This function aggregates the all the functions / steps
+    involving the run morphometric indices main feat.
+    """
+    validate_retrive()
+    print(returned_user_data)
 
 
 def main():
     """
-    Run the main functionalities of the app.
+    Displays the main menu with options for users to 
+    choose the application's functionalities.
     """
-    # for key in basin_variables.keys():
-    #     get_data(key)
-
-    # check_elevation()
-    # check_dimensional_data()
-    # print_table()
-    # approve_transfer_data()
-    validate_retrive()
-    print(returned_user_data)
-    print('deu certo!')
+    print("_____WELCOME__TO__HYDROMORPHO_____\n")
+    print('\n')
+    print("Please choose from the options below.\n")
+    print("1. Inser Basin Data\n")
+    print("2. Run Morphometric Indices\n")
+    print("3. Instructions\n")
+    print("4. Exit\n")
+    while True:
+        try:
+            choice = int(typeInput("Enter a number for the desired feature: \n"))
+            if choice == 1:
+                get_user_basin_data()
+                break
+            elif choice == 2:
+                check_batch()
+                break
+            elif choice == 3:
+                check_invt()
+                break
+            elif choice == 4:
+                exit()
+                break
+        except ValueError:
+            print("Invalid input. Enter a number according to"
+                  " the desired feature.\n")
+            continue
 
 
 main()
