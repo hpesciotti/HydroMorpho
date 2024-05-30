@@ -1,16 +1,23 @@
 from __future__ import print_function
 
+from terminaltables import AsciiTable, DoubleTable, SingleTable
+
+import gspread
+
+from google.oauth2.service_account import Credentials
+
 # Importing Regular Expression - Regex to validate specific patterns
 # for morphometric validation of inputted data.
 import re
 
 # Importing os library for clear screen
-# Inspired by Amy Richardson PP3 project 
+# Inspired by Amy Richardson PP3 project
 import os
 
 # Importing os library for clear screen
 # Inspired by Amy Richardson PP3 project
-import time,sys
+import time
+import sys
 
 # Inspired by Amy Richardson PP3 project
 # tutorial: https://linuxhint.com/colorama-python/
@@ -20,12 +27,6 @@ colorama.init(autoreset=True)
 
 # Importing terminal table
 # source: https://pypi.org/project/terminaltables/
-
-from terminaltables import AsciiTable, DoubleTable, SingleTable
-
-import gspread
-
-from google.oauth2.service_account import Credentials
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -42,10 +43,8 @@ SHEET = GSPREAD_CLIENT.open('hydromorpho')
 # Constants
 
 # For Regex, I used as fonts the following links:
-# How I found out about Regex: https://stackoverflow.com/questions/18632491/how-do-i-check-for-an-exact-word-or-phrase-in-a-string-in-python
 # Regex Calculator: https://regex101.com/
 # Regex reading material: https://www.w3schools.com/python/python_regex.asp
-# Regex negative and positive lookahead assertions: https://www.regextutorial.org/positive-and-negative-lookahead-assertions.php
 
 # Regex Constants
 RE_PATTERNS = {
@@ -83,7 +82,8 @@ morpho_indices = []
 # Returned user data from Google Sheets used on item 2
 returned_user_data = []
 
-# Credit: Amy Richardson PP3 
+
+# Credit: Amy Richardson PP3
 # https://www.101computing.net/python-typing-text-effect/
 def clear_screen():
     """
@@ -91,13 +91,15 @@ def clear_screen():
     """
     os.system("clear")
 
-# Credit: Amy Richardson PP3 
+
+# Credit: Amy Richardson PP3
 # https://www.101computing.net/python-typing-text-effect/
 def typePrint(text):
     for character in text:
         sys.stdout.write(character)
         sys.stdout.flush()
         time.sleep(0.05)
+
 
 # Inspired by Code Institue's Love Sandwiches project
 def get_data(variable_input):
@@ -111,13 +113,14 @@ def get_data(variable_input):
             print("\n")
             print("Please enter the basin's name.\n")
             print("Up to 25 lowercase characters and numbers are allowed.\n")
-            print('As shown in the example, use the prefix "b_"\n') 
+            print('As shown in the example, use the prefix "b_"\n')
             print('and separate words with the "_" underscore.\n')
             print('e.g.: b_river_suir_02\n')
         elif variable_input == 'lat_centroid':
             pattern = RE_PATTERNS['decimal_degrees']
             print("\n")
-            print("Please enter the latitude coordinate in the Decimal Degrees")
+            print("Please enter the latitude coordinate"
+                  "in the Decimal Degrees")
             print("format of the basin's centroid.")
             please_ahere()
             print("e.g.: -20.102852\n")
@@ -201,8 +204,8 @@ def validate_data(data, pattern, variable_input):
     elif data.lower() == 'exit':
         main()
     else:
-        print(f"{Fore.RED}Invalid input, {data} does not" 
-                   " match the pattern.")
+        print(f"{Fore.RED}Invalid input, {data} does not"
+              " match the pattern.")
         print('\n')
         typePrint('If unsure, go back to "Main Menu > Instructions" to')
         typePrint(' better understand the data to be provided.\n')
@@ -249,9 +252,9 @@ def check_elevation():
     else:
         print(Fore.RED + "The elevation data you entered is invalid.\n")
         typePrint("The outlet elevation must be inferior to the basin's"
-              " main channel initial point elevation.\n"
-              "In addition, the latter has to be inferior to"
-              " the highest point in the basin.\n")
+                  " main channel initial point elevation.\n"
+                  "In addition, the latter has to be inferior to"
+                  " the highest point in the basin.\n")
         time.sleep(1)
         re_enter_data('elevation', ['elev_outlet_ho',
                       'elev_b_spring_hs', 'elev_b_highest_p_hhp'],
@@ -276,16 +279,16 @@ def check_dimensional_data():
         and (ls < (lb * 20)) and (lb < (ls * 20))) and
        ((area_b != pmt_b) and (lb != ls))):
         print(Fore.GREEN + 'Basin dimensional inputted data'
-                              ' is consistent.\n')
-        time.sleep(2)                      
+                           ' is consistent.\n')
+        time.sleep(2)
         typePrint('Proceeding...\n')
         time.sleep(1)
         return True
     else:
         print(Fore.RED + "There's discrepancies in between"
-                             " area and perimeter"
-                             " or basin's length and main"
-                             " stream length.\n")
+                         " area and perimeter"
+                         " or basin's length and main"
+                         " stream length.\n")
         time.sleep(2)
         re_enter_data('dimensional', ['area_sqkm', 'perimeter_km',
                       'main_length_ls', 'basin_length_lb'],
@@ -361,7 +364,7 @@ def approve_transfered_data():
     Approve data presented by the chart and return basin index number
     """
     while True:
-        user_input = input("Are the data correct? Would you like" 
+        user_input = input("Are the data correct? Would you like"
                            " to proceed?\n"
                            "Enter Y or N.\n")
         if user_input.lower() == 'y':
@@ -374,7 +377,7 @@ def approve_transfered_data():
             print(Fore.GREEN + 'All data sent with success!\n')
             time.sleep(1)
             typePrint(f'Your basin index number is "{user_basin_n}"\n')
-            typePrint('Save this number, it will be needed for' 
+            typePrint('Save this number, it will be needed for'
                       ' "2. Run Morphometric Indices"\n')
             break
         elif user_input.lower() == 'n' and 'exit':
@@ -385,10 +388,11 @@ def approve_transfered_data():
             print('\n')
         break
 
+
 # 1. Insert Basin Data
 def get_user_basin_data():
     """
-    Center all the functions involved in collecting the user 
+    Center all the functions involved in collecting the user
     basin data.
     """
     clear_screen()
@@ -416,7 +420,7 @@ def validate_retrieve():
         print('\n')
         b_index = input("Please insert your basin index number to continue\n"
                         "To go back to main menu type exit\n")
-        
+
         if b_index.lower() == 'exit':
             print('\n')
             print(Fore.RED + "Exiting...")
@@ -455,12 +459,12 @@ def validate_retrieve():
 
 def approve_retrieved_data():
     """
-    Allows to user to validate fetched data from v_data by returning 
+    Allows to user to validate fetched data from v_data by returning
     the basin name. If not valid the user can try other entries.
     """
     b_name = returned_user_data[0]
     print('Type Y to confirm or N to pick another basin'
-          ' index number.\n' 
+          ' index number.\n'
           'You can also escape to '
           'main menu by entering "exit"\n')
     user_input = input(f"Is {b_name} the desired basin?\n")
@@ -472,7 +476,7 @@ def approve_retrieved_data():
         elif user_input.lower() == 'n' and 'exit':
             time.sleep(1)
             validate_retrieve()
-        elif user_input.lower() =='exit':
+        elif user_input.lower() == 'exit':
             typePrint('Exiting...')
             time.sleep(1)
             clear_screen()
@@ -551,7 +555,7 @@ def morphometric_indices():
         description_cc = "basin with medium tendency to large floods"
     else:
         description_cc = "basin with high propensity for large floods"
-    
+
     # Elongation Ratio Classification
     if result_re < 0.5:
         description_re = "more elongated"
@@ -566,14 +570,14 @@ def morphometric_indices():
 
     morpho_indices = [
         basin_name,
-        result_cc, 
-        description_cc, 
-        result_ff, 
+        result_cc,
+        description_cc,
+        result_ff,
         description_ff,
         result_re,
         description_re,
-        result_tc, 
-        result_tcf, 
+        result_tc,
+        result_tcf,
         result_rr
     ]
 
@@ -595,7 +599,6 @@ def print_morpho_data_table():
     result_tcf = morpho_indices[8]
     result_rr = morpho_indices[9]
 
-
     table_data = (
                    ('Variables', 'Data'),
                    ('Basin Name', b_name),
@@ -603,11 +606,10 @@ def print_morpho_data_table():
                    ('Form Factor', result_ff),
                    ('Enlogation Ratio', result_re),
                    ('Time of Concentration', result_tc),
-                   ('Time of Concentration'
-                    ' Waterproof(h)', result_tcf),
+                   ('Time of Concentration (h)'
+                    ' Waterproof (h)', result_tcf),
                    ('Relative relief - '
-                    'altimetric gradiant'
-                    ' in meters', result_rr)
+                    'meters', result_rr)
                    )
 
     table_title = "Basin Data"
@@ -616,6 +618,7 @@ def print_morpho_data_table():
     table_instance.justify_columns[2] = "right"
     print(table_instance.table)
     print()
+
 
 def print_morpho_text():
     """
@@ -640,7 +643,7 @@ def print_morpho_text():
               f' denoting {class_ff}.\n')
     print('\n')
     typePrint(f'In additon, the Elongation Ratio resulted in {result_re},'
-              f'suggesting that the shape of the basin can be classified' 
+              f'suggesting that the shape of the basin can be classified'
               f' as {class_re}.')
     print('\n')
     typePrint('Depending on the shape, flooding in the basin can be'
@@ -658,14 +661,14 @@ def print_morpho_text():
     typePrint(f' Moreover, there is the Time of Concentration data, which,'
               f' in simplified terms, means the time measured in hours for'
               f' the river surface flow from the source to the basin outlet.'
-              f' This index, calculated for the {result_tc} basin without'
+              f' This index, calculated for the {b_name} h basin without'
               f' urban influence (i.e., without impermeable areas),'
-              f' was {result_tcf} h. With the urbanization percentile'
-              f' provided by the user, this index resulted in XXX. It should'
-              f' be noted that impermeable areas increase runoff and generate'
-              f' flooding at choke points.')
+              f' was {result_tc} h. With the urbanization percentile'
+              f' provided by the user, this index resulted in {result_tcf} h.'
+              f' It should be noted that impermeable areas increase runoff'
+              f' and generate flooding at choke points.')
     print('\n')
-    typePrint('Finally, the indices calculated are well-established in academic'
+    typePrint('Finally, the indices chosen are well-established in academic'
               ' literature, and their accuracy will also depend on the quality'
               ' of the information entered into this web application.')
 
@@ -715,41 +718,41 @@ def instructions():
     print('\n')
     print('\n')
     typePrint("Beforehand, the user needs to collect data on relief,\n"
-          "including linear and areal features. This can be done\n"
-          "in various ways, such as consulting a topographic map\n"
-          "or using a Geographic Information System (GIS).\n"
-          "For users less familiar with GIS, it is recommended to\n"
-          "use Google Earth Pro. The pro version allows users to\n"
-          "draw the basin/watershed and obtain the necessary metrics\n"
-          "to input into the app.\n"
-          "\n"
-          "The required inputs are:\n"
-          "\n"
-          "Latitude of the basin's centroid\n"
-          "\n"
-          "Longitude of the basin's centroid\n"
-          "\n"
-          "Basin area in km² (with 3 significant digits after the decimal\n"
-          "point)\n"
-          "\n"
-          "Basin perimeter in km (with 3 significant digits after the\n"
-          "decimal point)\n"
-          "\n"
-          "Main stream length in km (with 3 significant digits after\n"
-          "the decimal point)\n"
-          "\n"
-          "Basin length, from the furthest point of the basin to\n"
-          "the other, with 3 significant digits\n"
-          "\n"
-          "Main stream outlet elevation in meters\n"
-          "\n"
-          "Spring elevation, the starting point of the main stream,\n"
-          "in meters\n"
-          "\n"
-          "Basin's highest point in meters\n"
-          "\n"
-          "An estimate Urbanization level as a percentage of\n" 
-          "constructed area\n")
+              "including linear and areal features. This can be done\n"
+              "in various ways, such as consulting a topographic map\n"
+              "or using a Geographic Information System (GIS).\n"
+              "For users less familiar with GIS, it is recommended to\n"
+              "use Google Earth Pro. The pro version allows users to\n"
+              "draw the basin/watershed and obtain the necessary metrics\n"
+              "to input into the app.\n"
+              "\n"
+              "The required inputs are:\n"
+              "\n"
+              "Latitude of the basin's centroid\n"
+              "\n"
+              "Longitude of the basin's centroid\n"
+              "\n"
+              "Basin area in km²(with 3 significant digits after the\n"
+              " decimal point)\n"
+              "\n"
+              "Basin perimeter in km (with 3 significant digits after the\n"
+              "decimal point)\n"
+              "\n"
+              "Main stream length in km (with 3 significant digits after\n"
+              "the decimal point)\n"
+              "\n"
+              "Basin length, from the furthest point of the basin to\n"
+              "the other, with 3 significant digits\n"
+              "\n"
+              "Main stream outlet elevation in meters\n"
+              "\n"
+              "Spring elevation, the starting point of the main stream,\n"
+              "in meters\n"
+              "\n"
+              "Basin's highest point in meters\n"
+              "\n"
+              "An estimate Urbanization level as a percentage of\n"
+              "constructed area\n")
     return_main()
 
 
@@ -761,23 +764,24 @@ def about():
     print('\n')
     print('\n')
     typePrint("The analysis of morphometric parameters is essential for\n"
-          "understanding and managing watersheds, making it a fundamental\n"
-          "component of hydrological investigations.\n" 
-          "\n"
-          "This application provides a quick and accessible tool\n"
-          "for obtaining hydrological and geomorphological \n"
-          "morphometric parameters using collected data on relief,\n"
-          "linear, and areal features.\n"
-          "\n"
-          "Through a variety of scientifically renowned methods,\n"
-          "this application offers an overview of a basin's\n"
-          "hydrological behavior, particularly regarding flood\n"
-          "propensity.\n"
-          "\n"
-          "It caters to the needs of students,hydrology and\n" 
-          "geomorphology professionals, and the community, addressing\n"
-          "the evolving demands of planning for climate-related disasters.\n")
-    return_main()   
+              "understanding and managing watersheds, making it a\n"
+              "fundamental component of hydrological investigations.\n"
+              "\n"
+              "This application provides a quick and accessible tool\n"
+              "for obtaining hydrological and geomorphological \n"
+              "morphometric parameters using collected data on relief,\n"
+              "linear, and areal features.\n"
+              "\n"
+              "Through a variety of scientifically renowned methods,\n"
+              "this application offers an overview of a basin's\n"
+              "hydrological behavior, particularly regarding flood\n"
+              "propensity.\n"
+              "\n"
+              "It caters to the needs of students,hydrology and\n"
+              "geomorphology professionals, and the community, addressing\n"
+              "the evolving demands of planning for climate-related"
+              "disasters.\n")
+    return_main()
 
 
 def call_ascii_art():
@@ -785,7 +789,7 @@ def call_ascii_art():
     Displays ascii art with the app logo.
     """
     print(Fore.CYAN +
-        '''
+          '''
         ##################################################################
         .                                                                .
                      )_)     _ ) _  _   ))/) _   _  _ ( _   _
@@ -793,10 +797,11 @@ def call_ascii_art():
                          _)                       (
         .                                                                .
         ##################################################################
-    
+
          ------------------- A Morphometric Calculator --------------------
         '''
-    )
+          )
+
 
 def quit_app():
     """
@@ -814,10 +819,11 @@ def quit_app():
     clear_screen()
     quit()
 
+
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
     """
-    Displays the main menu with options for users to 
+    Displays the main menu with options for users to
     choose the application's functionalities.
     """
     call_ascii_art()
@@ -829,8 +835,7 @@ def main():
     typePrint("         5. Quit\n")
     while True:
         try:
-            choice = int(input("         "
-                  "Enter a number for the desired feature: \n"))
+            choice = int(input("Enter a number for the desired feature:\n"))
             if choice == 1:
                 get_user_basin_data()
                 break
