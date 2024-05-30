@@ -93,12 +93,14 @@ def get_data(variable_input):
     while True:
         if variable_input == 'basin_name':
             pattern = RE_PATTERNS['basin_naming']
+            clear_screen()
             print("Please enter the basin's name.\n")
-            print("Up to 25 lowercase characters and numbers are allowed.")
-            print('As shown in the example, use the prefix "b_" and separate'
-                  ' words with the "_" underscore.\n'
-                  'e.g.: b_river_suir_02\n')
+            print("Up to 25 lowercase characters and numbers are allowed.\n")
+            print('As shown in the example, use the prefix "b_"\n') 
+            print('and separate words with the "_" underscore.\n')
+            print('e.g.: b_river_suir_02\n')
         elif variable_input == 'lat_centroid':
+            clear_screen()
             pattern = RE_PATTERNS['decimal_degrees']
             print("Please enter the latitude coordinate in the Decimal Degrees"
                   " format of the basin's centroid.")
