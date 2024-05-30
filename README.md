@@ -48,24 +48,17 @@ This Python command line interface (CLI) application is a morphometric calculato
 
 My choice for an unorthodox and quite unique project stems from my academic background in Geography (bachelor's degree) and my knowledge of Fluvial Geomorphology and Geographic Information Systems (GIS). Moreover, I intended to deviate from classical Python projects in order to develop my competencies in thinking about the logic of software without relying on tutorials or other students' projects. Thus, combining watershed assessing methodologies with the versatility of Python and its libraries seemed a worthy challenge.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ## **2. UX Design**
 
 ### **2.1. Strategy**
 
-In the app's planning stage, I visited some websites with web applications that dealt with general geography issues, such as country capitals, landmarks, etc. However, I didn't find any of these quick quiz sites with more academically accurate content. So, I opted for a database of questions from the Brazilian vestibular exam (corresponding to the Irish leaving cert exam). I adapted most of the questions and inserted some others that would better portray Ireland's natural and geopolitical landscape. 
+While designing the application, I searched the academic literature for morphometric indices that would be of great value in assessing a river's susceptibility to flooding events. The indices should present easily collected variables and do not require skills in numerical modelling or geographic information systems. Finally, an interpretation key for the indices generated would be necessary. 
 
-During my research, I came across websites that listed questions on a single page, which didn't align with the projects discussed in our weekly scrums. In one of these meetings, I shared my choice for PP2 with our cohort facilitator. She introduced us to the Geography for Kids project, a collaborative effort led by Deeksa Varma, which served as a valuable reference for our project. 
+Despite my experience with this subject, deciding on these indices proved arduous and time-consuming. In a way, this made the rest of the application development process relatively short. Therefore, the development of this CLI became a major challenge from the point of view of methodology and the programming language learning curve.
 
-As a personal note, while analyzing the Geography for Kids project code, I noticed it was complex compared to the other app samples. Through a search on GitHub, I confirm that a person with a good background in the field developed it, which contrasts with my background of almost no coding experience before enrolling in Code Institute's course. The complexity ultimately led me to intensify my immersion in JavaScript and improve my skills.
-
-The app is aimed at people of all ages and backgrounds, but it's best suited to people who have already completed elementary school. It also aims to create a ludic playful and colourful environment that introduces the user to the main themes of geography, such as Geopolitics, Climatology, Carthography, Landforms, and Biogeography. 
-
-Responsibility is essential for the app as it allows users to access the quiz from various devices. Finally, the high score/leaderboard system gives greater engagement by generating competition between friends and potential users. 
-
-
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **2.2. User Stories**
 
@@ -75,34 +68,15 @@ Responsibility is essential for the app as it allows users to access the quiz fr
 - I want quick and effective way to evalute hydrology a watershed.
 - I want to consult the data of a submitted basin.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **2.3. Flow Chart**
 
-I generated the preliminary web application wireframes utilizing Balsamiq. I had yet to finalize the colour scheme at this stage of the project's conception. Therefore, I focused solely on establishing the foundational elements of features and web application flow.
+I generated the preliminary CLI application flow chart utilizing Lucidcharts. The need for a detailed thought process to establish the foundational elements of features and application flow was very helpful during the coding stage. In a sense, the initial architecture given by the flow chart was strictly followed to the best of my coding capacities.
 
-In this sense, I have identified three essential stages for the app to meet the user stories requirements, which I have appointed as: 
-- intro - "landing page" with the instructions and a form section to get the player name.
-- game - the section of the game in which the questions and answer options would be displayed.
-- score - showing how many questions were answered correctly and accompanied by a message that would reflect the score and an option to pay for the game again.
+![Flow Chart](docs/documentation/Flow_Chart_HydroMorpho.png)
 
-#### **Desktop/Laptop/Tablet Version**
-
--   [Intro](docs/documentation/wireframe-balsamic-geoquiz-intro-page-larger-screens.jpg)
-
--   [Game](docs/documentation/wireframe-balsamic-geoquiz-game-page-larger-screens.jpg)
-
--   [Score](docs/documentation/wireframe-balsamic-geoquiz-score-page-larger-screens.jpg)
-
-#### **Mobile Version**
-
--   [Intro](docs/documentation/wireframe-balsamic-geoquiz-intro-page-mobile.jpg)
-
--   [Game](docs/documentation/wireframe-balsamic-geoquiz-game-page-mobile.jpg)
-
--   [Score](docs/documentation/wireframe-balsamic-geoquiz-score-page-mobile.jpg)
-
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **2.4. Design**
 
@@ -110,7 +84,7 @@ In this sense, I have identified three essential stages for the app to meet the 
 
 The site's background image was obtained through Adobe Firefly AI Image Generator application. The generative AI, based on a prompt indicating the colour palette, the illustration style, and the elements to be displayed, returned the [image](docs/documentation/background-image.png) present in the application. Furthermore, the image was compressed and convert to webp.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 #### **Colour Scheme**
 
@@ -124,13 +98,13 @@ Moreover, regarding the drop shadow effect, I tried to get a score superior to 5
 - Drop-shadow  - chosen color
 
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 #### **Typography**
 
 The employed typography was Poppins provided by [Google Fonts](https://fonts.google.com/?query=poppins). I opt to use only one font on this web application in order to maintain uniformity. This choice was inspired by [Codehal's video tutorial](https://www.youtube.com/watch?v=Vp8x8-reqZA).
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ## **3. Features**
 
@@ -148,7 +122,7 @@ Also, in the code sphere,  setQuestionsOptions sets the answer options for each 
 
 At last, the presence of a back to main menu button ensures that users can navigate freely.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **3.2. Future Features**
 
@@ -160,7 +134,7 @@ At last, the presence of a back to main menu button ensures that users can navig
 
 - Due to terminal limiting and confusing UI, an improved graphic interface.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ## **4. Technologies Used**
 
@@ -208,7 +182,7 @@ At last, the presence of a back to main menu button ensures that users can navig
 
 - [Heroku](https://dashboard.heroku.com/): for deploying the terminal application.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 
 ## **6. Deployment**
@@ -255,7 +229,7 @@ At last, the presence of a back to main menu button ensures that users can navig
 
 - [Amy Richardson](https://github.com/amylour/BakeStock/blob/main): for colorama, a couple of functions and Readme structure.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **6.2. Media**
 
@@ -287,4 +261,4 @@ review of data sources, quality, and geospatial techniques. In: Watershed Ecolog
 
 - My partner, Joana, for all the emotional support.
 
-[Back to top](https://github.com/hpesciotti/GeoQuiz?tab=readme-ov-file#geoquiz--a-geography-quiz-for-all-ages-and-backgrounds)
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
