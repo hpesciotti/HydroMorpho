@@ -110,9 +110,7 @@ The employed typography was Poppins provided by [Google Fonts](https://fonts.goo
 
 ### **3.1. Existing Features**
 
-
-
-#### **Instructions/Username**
+#### **Data Collection**
 
 This page defines the guidelines and provides general instructions on how the quiz works. The user must enter a valid username in a text input area with a maximum length of 15 characters. The user entry is saved in local storage and will later be used in the leaderboard. The function to get the username was inspired by Amy Richardson's PP2 project. The username is also reproduced on the following page via inner.html
 
@@ -123,6 +121,74 @@ Also, in the code sphere,  setQuestionsOptions sets the answer options for each 
 At last, the presence of a back to main menu button ensures that users can navigate freely.
 
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
+
+### **Run Morphometric Indices**
+
+**Compactness Coefficient**
+
+The compactness coefficient (or Gravelius coefficient),  K_c , is defined as the ratio between the perimeter of a basin (P) and the perimeter of a circle with the same area (A). For a circular basin, the area and perimeter are given by  A = \pi r^2  and  P = 2\pi r , respectively. Thus, the compactness coefficient is calculated as:
+
+\[ K_c = \frac{P}{2\sqrt{\pi A}} \]
+
+This coefficient measures how closely the shape of a basin approximates a circle (Horton, 1945). When  K_c = 1 , the basin is perfectly circular. Values of  K_c  greater than 1 indicate a deviation from circularity. The coefficient is dimensionless and independent of the basin size, with a minimum value of 1 corresponding to a circular basin. Basins with  K_c  values near 1 are more prone to significant flooding. Typically,  K_c  values less than or equal to 1.13 represent generally rounded basins.
+
+Where:
+-  P  = perimeter of the watershed (km)
+-  A  = area of the watershed (km²)
+
+In summary:
+-  1.00 - 1.25 : basins with a high propensity for large floods
+-  1.25 - 1.50 : basins with a moderate tendency for large floods
+-  > 1.50 : basins not prone to large floods
+
+2. **Time of Concentration**
+
+Témez’s formula, tested in American and Spanish basins, closely approximates reality and, along with Giandotti's formula, is widely used in Portugal. The formula is:
+
+\[ t_c = \left(\frac{L}{i^{0.25}}\right)^{0.76} \]
+
+Where:
+-  t_c  = time of concentration (h)
+-  L  = main stream length (km)
+-  i  = average slope of the main stream
+
+According to Pelaez (1978), this formula can be applied to urban basins if urban zones are dispersed rather than concentrated. Urbanization enhances surface flow, necessitating adjustments to the time of concentration. Témez proposed the following adjustment for urban basins:
+
+\[ t_c' = \frac{t_c}{1 + 3 \cdot \sqrt{\mu} \cdot (2 - \mu)} \]
+
+Where  t_c  (in hours) is the time of concentration for natural basins, and  \mu  (dimensionless) is the ratio of the impermeable area to the total area. This formula is valid for basins with an area less than 3000 km².
+
+3. **Form Factor ( K_f )**
+
+The form factor,  K_f , represents the ratio between the average width ( l ) and the length of a basin ( L_b ). The average width is defined as the ratio between the area ( A ) and the length of the basin. Thus,  K_f  is:
+
+\[ K_f = \frac{A}{L_b^2} \]
+
+A basin with a low form factor is less prone to floods than one with a higher form factor because elongated basins have a lower likelihood of intense rain over the entire area simultaneously. Therefore, the contributions of tributaries do not occur simultaneously, reducing the critical flow rate. The maximum value of  K_f  is 1, corresponding to a square basin.
+
+According to Horton (1932), the form factor is a dimensionless ratio of the basin length squared to the basin area, often used to describe various basin shapes (Vittala et al., 2004; Yangchan et al., 2015). The value ranges are:
+
+-  1.00 - 0.75 : prone to floods
+-  0.75 - 0.50 : moderate tendency for floods
+-  < 0.50 : not prone to floods
+
+4. **Elongation Ratio ( R_e )**
+
+The elongation ratio,  R_e , is the ratio of the diameter to the length of a circle with the same area as the catchment. It provides insight into the hydrological characteristics of a drainage basin. An elongated basin is less efficient at discharging runoff compared to a circular basin.  R_e  is calculated as:
+
+\[ R_e = \frac{\text{Diameter}}{\text{Length}} \]
+
+The categorization of elongation ratios is:
+
+- Less than 0.5: more elongated
+- 0.5 to 0.7: elongated
+- 0.7 to 0.8: less elongated
+- 0.8 to 0.9: oval
+
+5. **Relative Relief ( R_r )**
+
+Melton (1957) used the concepts of perimeter and watershed relief to calculate parameters such as relative relief, which measures the variation in altitude within a region relative to its local reference point. This metric is valuable as it accounts for the slopes and dynamic characteristics of the terrain, providing an understanding of the morphogenesis, or the processes shaping the region's landforms.
+
 
 ### **3.2. Future Features**
 
@@ -189,17 +255,54 @@ At last, the presence of a back to main menu button ensures that users can navig
 
 
 
-### **6.1. GitHub Pages**
+### **6.1. Deploying via Heroku**
 
 
 
 ### **6.2. Forking the GitHub Repository**
 
+By forking the GitHub repository you can make a copy of the original repository on your GitHub account. You can view and/or make changes to this copy, without affecting the original repository, by using the following steps:
 
+I. Log in to GitHub.
+II. Navigate to the main page of the GitHub Repository that you want to fork.
+III. At the top right of the Repository, just below your profile picture, find the "Fork" button.
+IV. You should now have a copy of the original repository in your GitHub account.
+V. Changes made to the forked repository can be merged with the original repository via a pull request.
+
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **6.3. Making a Local Clone**
 
+By cloning a GitHub Repository, you can create a local copy on your computer of the remote repository. This allows you to make all of your edits locally, rather than directly in the source files of the origin repository, by using the following steps:
 
+I. Log in to GitHub
+II. Navigate to the main page of the GitHub Repository that you want to clone.
+III. Above the list of files, click on the dropdown item called "Code".
+IV. To clone the repository using HTTPS, copy the link under "HTTPS".
+V. Open Git Bash.
+VI. Change the current working directory to the location where you want the cloned directory to be made.
+VII. Type `git clone`, and then paste the URL you copied in Step 4.
+
+```
+$ git clone https://github.com/hpesciotti/HydroMorpho.git
+```
+
+VIII. Finally, press Enter. Your local clone has now been created.
+
+```
+$ git clone https://github.com/hpesciotti/GeoQuiz
+> Cloning into `CI-Clone`...
+> remote: Counting objects: 10, done.
+> remote: Compressing objects: 100% (8/8), done.
+> remove: Total 10 (delta 1), reused 10 (delta 1)
+> Unpacking objects: 100% (10/10), done.
+```
+
+Changes made on the local machine (cloned repository) can be pushed to the upstream repository directly if you have a write access for the repository. Otherwise, the changes made in the cloned repository are first pushed to the forked repository, and then a pull request is created.
+
+[Click Here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository-from-github/cloning-a-repository) for a more comprehensive guide on how to complete the above process.
+
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ## **6. Credits**
 
