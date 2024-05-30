@@ -93,8 +93,8 @@ def get_data(variable_input):
     while True:
         if variable_input == 'basin_name':
             pattern = RE_PATTERNS['basin_naming']
-            print("Please enter the basin's name. Up to 25 lowercase"
-                  " characters and numbers are allowed.")
+            print("Please enter the basin's name.\n")
+            print("Up to 25 lowercase characters and numbers are allowed.")
             print('As shown in the example, use the prefix "b_" and separate'
                   ' words with the "_" underscore.\n'
                   'e.g.: b_river_suir_02\n')
@@ -336,7 +336,7 @@ def approve_transfered_data():
             print(f'All data sent with success! Your basin index' 
                   f' number is "{user_basin_n}"\n'
                    'Save this number, it will be used' 
-                   'in "2-Run Morphometric Indices"\n')
+                   'in "2. Run Morphometric Indices"\n')
             break
         elif user_input.lower() == 'n' and 'exit':
             main()
@@ -344,11 +344,29 @@ def approve_transfered_data():
             print('Incorrect input. Please try again.\n')
         break
 
-
-def validate_retrive():
+# 1. Insert Basin Data
+def get_user_basin_data():
     """
-    Retrive user data for running morphometric indices.
-    The data is retrived from v_data sheet
+    Center all the functions involved on collectiong the user 
+    basin data.
+    """
+    clear_screen()
+    for key in basin_variables.keys():
+        get_data(key)
+    clear_screen()
+    check_elevation()
+    clear_screen()
+    check_dimensional_data()
+    clear_screen()
+    print_input_data_table()
+    approve_transfered_data()
+    return_main()
+
+
+def validate_retrieve():
+    """
+    Retrieve user data for running morphometric indices.
+    The data is retrieved from v_data sheet
     """
     global returned_user_data
     max_rows_gsheets = 983
@@ -373,11 +391,11 @@ def validate_retrive():
                     print(returned_user_data)
                 else:
                     print("There's no data with that basin index\n")
-                    validate_retrive()
+                    validate_retrieve()
             break
         else:
             print('Incorrect input. Please try again.\n')
-            validate_retrive()
+            validate_retrieve()
         break
 
 
@@ -396,27 +414,10 @@ def approve_retrieved_data():
             print('Running Morphometric Indices...\n')
             break
         elif user_input.lower() == 'n' and 'exit':
-            validate_retrive()
+            validate_retrieve()
         else:
             print('Incorrect input. Please try again.\n')
         break
-
-
-def get_user_basin_data():
-    """
-    Center all the functions involved on collectiong the user 
-    basin data.
-    """
-    clear_screen()
-    for key in basin_variables.keys():
-        get_data(key)
-    clear_screen()
-    check_elevation()
-    clear_screen()
-    check_dimensional_data()
-    clear_screen()
-    print_input_data_table()
-    validate_retrive()
 
 
 # Morphometric Indices
@@ -522,9 +523,11 @@ def run_morphometric_indices():
     involving the run morphometric indices main feat.
     """
     clear_screen()
-    validate_retrive()
+    validate_retrieve()
     clear_screen()
     morphometric_indices()
+    clear_screen()
+    return_main()
 
 
 
