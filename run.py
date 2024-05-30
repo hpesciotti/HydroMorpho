@@ -77,6 +77,8 @@ basin_variables = {
     'urbanization_level_u': [],
 }
 
+# For returning final indices and reproducing them via table to the user
+morpho_indices = []
 
 # Returned user data from Google Sheets used on item 2
 returned_user_data = []
@@ -560,7 +562,7 @@ def morphometric_indices():
     else:
         description_re = "circular"
 
-    all_results = [
+    morpho_indices = [
         basin_name,
         result_cc, 
         description_cc, 
@@ -572,12 +574,10 @@ def morphometric_indices():
         result_tcf, 
         result_rr
     ]
-    
-    f_data_sheet.append_row(all_results)
-    
-    print(all_results)
 
-    return all_results
+    f_data_sheet.append_row(morpho_indices)
+
+    return morpho_indices
 
 
 def run_morphometric_indices():
@@ -704,6 +704,22 @@ def call_ascii_art():
         '''
     )
 
+def quit_app():
+    """
+    Quits the application
+    For demonstration purposes only
+    """
+    clear_screen()
+    print('\n')
+    print('\n')
+    print('\n')
+    typePrint('                 Thank you for using HydroMorpho!')
+    print('\n')
+    print('\n')
+    time.sleep(2)
+    clear_screen()
+    quit()
+
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
     """
@@ -716,10 +732,11 @@ def main():
     typePrint("         2. Run Morphometric Indices\n")
     typePrint("         3. Instructions\n")
     typePrint("         4. About\n")
-    typePrint("         5. Exit\n")
+    typePrint("         5. Quit\n")
     while True:
         try:
-            choice = int(input("Enter a number for the desired feature: \n"))
+            choice = int(input("         "
+                  "Enter a number for the desired feature: \n"))
             if choice == 1:
                 get_user_basin_data()
                 break
@@ -733,7 +750,7 @@ def main():
                 about()
                 break
             elif choice == 5:
-                exit()
+                quit_app()
                 break
         except ValueError:
             print(Fore.RED + "Invalid input. Enter a number according to"
