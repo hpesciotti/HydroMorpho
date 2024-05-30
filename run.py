@@ -503,6 +503,8 @@ def morphometric_indices():
     elev_highest_hhp = float(returned_user_data[9])
     urbanization = float(returned_user_data[10])
 
+    global morpho_indices
+
     all_vb = [
         basin_name, area, perimeter, main_length_ls, basin_length_lb,
         elev_outlet_ho, elev_spring_hs, elev_highest_hhp, urbanization
@@ -600,14 +602,9 @@ def print_morpho_data_table():
                    ('Compactness Coefficient', result_cc),
                    ('Form Factor', result_ff),
                    ('Enlogation Ratio', result_re),
-                   ('Time of Concentration in a' 
-                    ' non urbanized cenario'
-                    ' value in hours', result_tc),
-                   ('Time of Concentration with' 
-                    ' the occupation parameter'
-                    ' inserted by the user'
-                    ' value in hours', result_tcf),
-                   ('Basin Length', lb),
+                   ('Time of Concentration', result_tc),
+                   ('Time of Concentration'
+                    ' Waterproof(h)', result_tcf),
                    ('Relative relief - '
                     'altimetric gradiant'
                     ' in meters', result_rr)
@@ -622,7 +619,7 @@ def print_morpho_data_table():
 
 def print_morpho_text():
     """
-    Create table with morphometric indices
+    Add analytic text with the morphometric indices
     """
 
     b_name = morpho_indices[0]
