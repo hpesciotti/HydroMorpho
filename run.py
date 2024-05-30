@@ -580,6 +580,99 @@ def morphometric_indices():
     return morpho_indices
 
 
+def print_morpho_data_table():
+    """
+    Create table with morphometric indices
+    """
+
+    b_name = morpho_indices[0]
+    result_cc = morpho_indices[1]
+    result_ff = morpho_indices[3]
+    result_re = morpho_indices[5]
+    result_tc = morpho_indices[7]
+    result_tcf = morpho_indices[8]
+    result_rr = morpho_indices[9]
+
+
+    table_data = (
+                   ('Variables', 'Data'),
+                   ('Basin Name', b_name),
+                   ('Compactness Coefficient', result_cc),
+                   ('Form Factor', result_ff),
+                   ('Enlogation Ratio', result_re),
+                   ('Time of Concentration in a' 
+                    ' non urbanized cenario'
+                    ' value in hours', result_tc),
+                   ('Time of Concentration with' 
+                    ' the occupation parameter'
+                    ' inserted by the user'
+                    ' value in hours', result_tcf),
+                   ('Basin Length', lb),
+                   ('Relative relief - '
+                    'altimetric gradiant'
+                    ' in meters', result_rr)
+                   )
+
+    table_title = "Basin Data"
+
+    table_instance = SingleTable(table_data, table_title)
+    table_instance.justify_columns[2] = "right"
+    print(table_instance.table)
+    print()
+
+def print_morpho_text():
+    """
+    Create table with morphometric indices
+    """
+
+    b_name = morpho_indices[0]
+    result_cc = morpho_indices[1]
+    class_cc = morpho_indices[2]
+    result_ff = morpho_indices[3]
+    class_ff = morpho_indices[4]
+    result_re = morpho_indices[5]
+    class_re = morpho_indices[6]
+    result_tc = morpho_indices[7]
+    result_tcf = morpho_indices[8]
+    result_rr = morpho_indices[9]
+
+    typePrint(f'The basin studied, called {b_name}, had a Coefficient'
+              f' of Compactness of {result_cc}, which indicates that'
+              f' {class_cc}.'
+              f' As for the Form Factor, it has a value of {result_ff},'
+              f' denoting {class_ff}.\n')
+    print('\n')
+    typePrint(f'In additon, the Elongation Ratio resulted in {result_re},'
+              f'suggesting that the shape of the basin can be classified' 
+              f' as {class_re}.')
+    print('\n')
+    typePrint('Depending on the shape, flooding in the basin can be'
+              ' disseminated, as in a more elongated basin with a propensity'
+              ' for flooding or in the vicinity of the outflow or main body'
+              ' of water, as in the case of circular basins. In both cases,'
+              ' the altimetric gradient is essential for understanding how'
+              ' such events occur spatially.')
+    print('\n')
+    typePrint(f'In both cases, the altimetric gradient is'
+              f' essential for understanding how such events occur spatially.'
+              f' In the case of the {b_name} basin, the Relative Relief'
+              f' was {result_rr} m.')
+    print('\n')
+    typePrint(f' Moreover, there is the Time of Concentration data, which,'
+              f' in simplified terms, means the time measured in hours for'
+              f' the river surface flow from the source to the basin outlet.'
+              f' This index, calculated for the {result_tc} basin without'
+              f' urban influence (i.e., without impermeable areas),'
+              f' was {result_tcf} h. With the urbanization percentile'
+              f' provided by the user, this index resulted in XXX. It should'
+              f' be noted that impermeable areas increase runoff and generate'
+              f' flooding at choke points.')
+    print('\n')
+    typePrint('Finally, the indices calculated are well-established in academic'
+              ' literature, and their accuracy will also depend on the quality'
+              ' of the information entered into this web application.')
+
+
 def run_morphometric_indices():
     """
     This function aggregates the all the functions / steps
@@ -589,8 +682,12 @@ def run_morphometric_indices():
     validate_retrieve()
     clear_screen()
     morphometric_indices()
+    clear_screen()
+    print_morpho_data_table()
+    print('\n')
+    print_morpho_text()
+    print('\n')
     return_main()
-
 
 
 def return_main():
