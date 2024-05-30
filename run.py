@@ -616,15 +616,16 @@ def call_ascii_art():
     """
     Displays ascii art with the app logo.
     """
-    print('''
-            ##################################################################
-            .                                                                .
-                         )_)     _ ) _ _   ))/) _   _ _ ( _   _
-                        ( ( (_( (_( ) (_) (  ( (_) ) )_) ) ) (_)
-                             _)                    (
-            .                                                                .
-            ##################################################################
-          ''')
+    print(
+        '''
+        ##################################################################
+        .                                                                .
+                     )_)     _ ) _ _   ))/) _   _ _ ( _   _
+                    ( ( (_( (_( ) (_) (  ( (_) ) )_) ) ) (_)
+                         _)                    (
+        .                                                                .
+        ##################################################################
+        ''')
 
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
@@ -635,9 +636,9 @@ def main():
     print('\n')
     call_ascii_art()
     print('\n')
-    print("------------------ A Morphometric Calculator------------------\n")
+    print("------------------ A Morphometric Calculator------------------")
     print('\n')
-    print("Please choose from the options below.\n")
+    print("     Please choose from the options below.\n")
     print("         1. Insert Basin Data")
     print("         2. Run Morphometric Indices")
     print("         3. Instructions")
