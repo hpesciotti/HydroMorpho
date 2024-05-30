@@ -12,6 +12,12 @@ import os
 # Inspired by Amy Richardson PP3 project
 import time,sys
 
+# Inspired by Amy Richardson PP3 project
+# tutorial: https://linuxhint.com/colorama-python/
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset=True)
+
 # Importing terminal table
 # source: https://pypi.org/project/terminaltables/
 
@@ -83,6 +89,13 @@ def clear_screen():
     """
     os.system("clear")
 
+# Credit: Amy Richardson PP3 
+# https://www.101computing.net/python-typing-text-effect/
+def typePrint(text):
+    for character in text:
+        sys.stdout.write(character)
+        sys.stdout.flush()
+        time.sleep(0.05)
 
 # Inspired by Code Institue's Love Sandwiches project
 def get_data(variable_input):
@@ -93,17 +106,17 @@ def get_data(variable_input):
     while True:
         if variable_input == 'basin_name':
             pattern = RE_PATTERNS['basin_naming']
-            clear_screen()
+            print("\n")
             print("Please enter the basin's name.\n")
             print("Up to 25 lowercase characters and numbers are allowed.\n")
             print('As shown in the example, use the prefix "b_"\n') 
             print('and separate words with the "_" underscore.\n')
             print('e.g.: b_river_suir_02\n')
         elif variable_input == 'lat_centroid':
-            clear_screen()
+
             pattern = RE_PATTERNS['decimal_degrees']
-            print("Please enter the latitude coordinate in the Decimal Degrees"
-                  " format of the basin's centroid.")
+            print("Please enter the latitude coordinate in the Decimal Degrees")
+            print("format of the basin's centroid.")
             please_ahere()
             print("e.g.: -20.102852\n")
         elif variable_input == 'long_centroid':
@@ -174,15 +187,18 @@ def validate_data(data, pattern, variable_input):
     Run Regex based on input data's type and re-run input if there's an error
     """
     if re.match(pattern, data):
-        print(f'Data is valid, {data} matches the pattern\n')
+        typePrint(f'{Fore.GREEN}Data is valid, {data} matches the pattern\n')
+        print('\n')
         return True
     elif data.lower() == 'exit':
         main()
     else:
-        print(f"Invalid input, {data} does not match the pattern."
-              'If unsure, go back to "Main Menu > Instructions" to'
-              ' better understand the data to be provided.\n'
-              'You can also return to Main Menu by typping "exit"\n')
+        typePrint(f"{Fore.RED}Invalid input, {data} does not" 
+                   " match the pattern.")
+        print('/n')
+        typePrint('If unsure, go back to "Main Menu > Instructions" to')
+        typePrint('better understand the data to be provided.\n')
+        typePrint('You can also return to Main Menu by typping "exit"\n')
         get_data(variable_input)
         return False
 
@@ -217,15 +233,17 @@ def check_elevation():
     hhp = int(basin_variables['elev_b_highest_p_hhp'])
 
     if ho < hs < hhp:
-        print('Elevation inputted data is consistent.\n'
+        typePrint(Fore.GREEN + 'Elevation inputted data is consistent.\n'
               'Proceeding...\n')
+        time.sleep(1)
         return True
     else:
-        print("The elevation data you entered is invalid.\n"
+        typePrint(Fore.RED + "The elevation data you entered is invalid.\n"
               "The outlet elevation must be inferior to the basin's"
               " main channel initial point elevation.\n"
               "In addition, the latter has to be inferior to"
               " the highest point in the basin.\n")
+        time.sleep(1)
         re_enter_data('elevation', ['elev_outlet_ho',
                       'elev_b_spring_hs', 'elev_b_highest_p_hhp'],
                       check_elevation)
@@ -247,12 +265,18 @@ def check_dimensional_data():
     if (((area_b < (pmt_b * 20)) and (pmt_b < (area_b * 20))
         and (ls < (lb * 20)) and (lb < (ls * 20))) and
        ((area_b != pmt_b) and (lb != ls))):
-        print('Basin dimensional inputted data is consistent.\n'
-              'Proceeding...\n')
+        typePrint(Fore.GREEN + 'Basin dimensional inputted data'
+                              ' is consistent.\n')
+        time.sleep(1)                      
+        typePrint(Fore.CYAN +'Proceeding...\n')
+        time.sleep(1)
         return True
     else:
-        print("There's discrepancies in between area and perimeter"
-              " or basin's length and main stream length.\n")
+        typePrint(Fore.RED + "There's discrepancies in between"
+                             " area and perimeter"
+                             " or basin's length and main"
+                             " stream length.\n")
+        time.sleep(1)
         re_enter_data('dimensional', ['area_sqkm', 'perimeter_km',
                       'main_length_ls', 'basin_length_lb'],
                       check_dimensional_data)
@@ -274,9 +298,11 @@ def re_enter_data(var_name, variables, check_function):
             if check_function():
                 break
         elif user_input.lower() == 'n':
+            time.sleep(1)
             main()
         else:
-            print('Incorrect input. Please try again.')
+            typePrint(Fore.RED + 'Incorrect input. Please try again.')
+            time.sleep(1)
         break
 
 
@@ -335,21 +361,25 @@ def approve_transfered_data():
                 transfer_data.append(values)
             v_data_sheet.append_row(transfer_data)
             user_basin_n = len(v_data_sheet.get_all_values())
-            print(f'All data sent with success! Your basin index' 
-                  f' number is "{user_basin_n}"\n'
-                   'Save this number, it will be used' 
-                   'in "2. Run Morphometric Indices"\n')
+            typePrint(Fore.GREEN + 'All data sent with success!\n')
+            print('/n')
+            time.sleep(0.5)
+            typePrint(Fore.CYAN + f'Your basin index number'
+                                  f' is "{user_basin_n}"')
+            print('/n')
+            typePrint(Fore.CYAN +'Save this number, it will be needed' 
+                                 'for "2. Run Morphometric Indices"\n')
             break
         elif user_input.lower() == 'n' and 'exit':
             main()
         else:
-            print('Incorrect input. Please try again.\n')
+            typePrint(Fore.RED + 'Incorrect input. Please try again.\n')
         break
 
 # 1. Insert Basin Data
 def get_user_basin_data():
     """
-    Center all the functions involved on collectiong the user 
+    Center all the functions involved in collecting the user 
     basin data.
     """
     clear_screen()
@@ -374,29 +404,41 @@ def validate_retrieve():
     max_rows_gsheets = 983
     b_name_clm = 1
     while True:
-        b_index = input("Please insert your basin index number\n")
-
+        b_index = input("Please insert your basin index number to continue\n"
+                        "To go back to main menu type exit\n")
+        
         if b_index.lower() == 'exit':
-            print("Exiting...")
+            print('\n')
+            typePrint(Fore.RED + "Exiting...")
+            time.sleep(1)
+            main()
             return False
 
         if b_index.isdigit():
             if int(b_index) < max_rows_gsheets:
-                print("Format is valid.\n")
-                print("Checking Database...\n")
+                typePrint(Fore.GREEN + "Format is valid.\n"
+                          "\n")
+                time.sleep(0.5)
+                typePrint(Fore.CYAN + "Checking Database...\n"
+                          "\n")
+                time.sleep(1)
                 b_name = v_data_sheet.cell(int(b_index), b_name_clm).value
                 if re.match(RE_PATTERNS['basin_naming'], str(b_name)):
-                    print("Retriving basin's data...\n")
+                    typePrint("Retriving basin's data...\n")
+                    print('\n')
+                    time.sleep(1)
                     returned_user_data = v_data_sheet.row_values(int(b_index))
                     approve_retrieved_data()
                     return returned_user_data
                     print(returned_user_data)
                 else:
-                    print("There's no data with that basin index\n")
+                    typePrint(Fore.RED + "There's no data with that basin index\n")
+                    time.sleep(0.5)
                     validate_retrieve()
             break
         else:
-            print('Incorrect input. Please try again.\n')
+            typePrint(Fore.RED + 'Incorrect input. Please try again.\n')
+            time.sleep(1)
             validate_retrieve()
         break
 
@@ -407,18 +449,29 @@ def approve_retrieved_data():
     the basin name. If not valid the user can try other entries.
     """
     b_name = returned_user_data[0]
-    print('Type Y to confirm or N pick another basin'
-          ' index number. You can also escape to '
-          'main menu by entering "exit"\n' )
+    print('Type Y to confirm or N to pick another basin'
+          ' index number.\n' 
+          'You can also escape to '
+          'main menu by entering "exit"\n')
     user_input = input(f"Is {b_name} the desired basin?\n")
     while True:
         if user_input.lower() == 'y':
-            print('Running Morphometric Indices...\n')
+            typePrint(Fore.CYAN + 'Running Morphometric Indices...\n')
+            time.sleep(1)
             break
         elif user_input.lower() == 'n' and 'exit':
+            time.sleep(1)
             validate_retrieve()
+        elif user_input.lower() =='exit':
+            typePrint('Exiting...')
+            time.sleep(1)
+            clear_screen()
+            main()
         else:
-            print('Incorrect input. Please try again.\n')
+            typePrint(Fore.RED + 'Incorrect input. Please try again.\n')
+            print('\n')
+            time.sleep(1)
+            validate_retrieve()
         break
 
 
@@ -528,7 +581,6 @@ def run_morphometric_indices():
     validate_retrieve()
     clear_screen()
     morphometric_indices()
-    clear_screen()
     return_main()
 
 
@@ -541,11 +593,14 @@ def return_main():
         print("\n")
         choice = input("To return to Main Menu, please enter 'exit'.\n")
         if choice.lower() == 'exit':
+            typePrint('Exiting...')
+            time.sleep(1)
             clear_screen()
             main()
             break
         else:
-            print("Invalid input, please try again.")
+            typePrint("Invalid input, please try again.")
+            time.sleep(2)
             continue
 
 
@@ -557,7 +612,7 @@ def instructions():
     clear_screen()
     print('/n')
     print('/n')
-    print("Beforehand, the user needs to collect data on relief,\n"
+    TypePrint("Beforehand, the user needs to collect data on relief,\n"
           "including linear and areal features. This can be done\n"
           "in various ways, such as consulting a topographic map\n"
           "or using a Geographic Information System (GIS).\n"
@@ -602,7 +657,7 @@ def about():
     clear_screen()
     print('/n')
     print('/n')
-    print("The analysis of morphometric parameters is essential for\n"
+    TypePrint("The analysis of morphometric parameters is essential for\n"
           "understanding and managing watersheds, making it a fundamental\n"
           "component of hydrological investigations.\n" 
           "\n"
@@ -626,7 +681,7 @@ def call_ascii_art():
     """
     Displays ascii art with the app logo.
     """
-    print(
+    print(Fore.CYAN +
         '''
         ##################################################################
         .                                                                .
@@ -635,10 +690,10 @@ def call_ascii_art():
                          _)                       (
         .                                                                .
         ##################################################################
-
-        ------------------- A Morphometric Calculator --------------------
-
-        ''')
+    
+         ------------------- A Morphometric Calculator --------------------
+        '''
+    )
 
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
