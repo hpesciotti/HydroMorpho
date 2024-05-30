@@ -113,46 +113,53 @@ def get_data(variable_input):
             print('and separate words with the "_" underscore.\n')
             print('e.g.: b_river_suir_02\n')
         elif variable_input == 'lat_centroid':
-
             pattern = RE_PATTERNS['decimal_degrees']
+            print("\n")
             print("Please enter the latitude coordinate in the Decimal Degrees")
             print("format of the basin's centroid.")
             please_ahere()
             print("e.g.: -20.102852\n")
         elif variable_input == 'long_centroid':
             pattern = RE_PATTERNS['decimal_degrees']
+            print("\n")
             print("Please enter the longitude coordinate in the Decimal"
                   " Degrees format of the basin's centroid.")
             please_ahere()
             print("e.g.: -43.453612\n")
         elif variable_input == 'area_sqkm':
             pattern = RE_PATTERNS['three_digits']
+            print("\n")
             print("Please enter the basin's area in km².")
             please_ahere()
             print("e.g.: 002.708\n")
         elif variable_input == 'perimeter_km':
             pattern = RE_PATTERNS['three_digits']
+            print("\n")
             print("Please enter the basin's perimeter in km².")
             please_ahere()
             print("e.g.: 007.289\n")
         elif variable_input == 'main_length_ls':
             pattern = RE_PATTERNS['three_digits']
+            print("\n")
             print("Please enter the main stream length in kilometres.")
             please_ahere()
             print("e.g.: 001.612\n")
         elif variable_input == 'basin_length_lb':
             pattern = RE_PATTERNS['three_digits']
+            print("\n")
             print("Please enter the basin's length in kilometres.")
             please_ahere()
             print("e.g.: 001.761\n")
         elif variable_input == 'elev_outlet_ho':
             pattern = RE_PATTERNS['four_digits']
+            print("\n")
             print("Please enter the elevation of the basin's outlet"
                   " point in meters.")
             please_ahere()
             print("e.g.: 0961\n")
         elif variable_input == 'elev_b_spring_hs':
             pattern = RE_PATTERNS['four_digits']
+            print("\n")
             print("Please enter the elevation of the main stream start of the"
                   " channel (spring) in meters.")
             please_ahere()
@@ -187,17 +194,16 @@ def validate_data(data, pattern, variable_input):
     Run Regex based on input data's type and re-run input if there's an error
     """
     if re.match(pattern, data):
-        typePrint(f'{Fore.GREEN}Data is valid, {data} matches the pattern\n')
-        print('\n')
+        print(f'{Fore.GREEN}Data is valid, {data} matches the pattern\n')
         return True
     elif data.lower() == 'exit':
         main()
     else:
-        typePrint(f"{Fore.RED}Invalid input, {data} does not" 
+        print(f"{Fore.RED}Invalid input, {data} does not" 
                    " match the pattern.")
-        print('/n')
+        print('\n')
         typePrint('If unsure, go back to "Main Menu > Instructions" to')
-        typePrint('better understand the data to be provided.\n')
+        typePrint(' better understand the data to be provided.\n')
         typePrint('You can also return to Main Menu by typping "exit"\n')
         get_data(variable_input)
         return False
@@ -226,20 +232,21 @@ def check_elevation():
     Taking into account those facts, this function was built.
     """
 
-    print('Running some validations...\n')
+    typePrint('Running some validations...\n')
+    time.sleep(2)
 
     ho = int(basin_variables['elev_outlet_ho'])
     hs = int(basin_variables['elev_b_spring_hs'])
     hhp = int(basin_variables['elev_b_highest_p_hhp'])
 
     if ho < hs < hhp:
-        typePrint(Fore.GREEN + 'Elevation inputted data is consistent.\n'
-              'Proceeding...\n')
+        print(Fore.GREEN + 'Elevation inputted data is consistent.\n')
+        typePrint('Proceeding...\n')
         time.sleep(1)
         return True
     else:
-        typePrint(Fore.RED + "The elevation data you entered is invalid.\n"
-              "The outlet elevation must be inferior to the basin's"
+        print(Fore.RED + "The elevation data you entered is invalid.\n")
+        typePrint("The outlet elevation must be inferior to the basin's"
               " main channel initial point elevation.\n"
               "In addition, the latter has to be inferior to"
               " the highest point in the basin.\n")
@@ -255,7 +262,8 @@ def check_dimensional_data():
     Checks consistency of the dimensional variables.
     """
 
-    print('Running some validations...\n')
+    typePrint('Running some validations...\n')
+    time.sleep(2)
 
     area_b = float(basin_variables['area_sqkm'])
     pmt_b = float(basin_variables['perimeter_km'])
@@ -265,18 +273,18 @@ def check_dimensional_data():
     if (((area_b < (pmt_b * 20)) and (pmt_b < (area_b * 20))
         and (ls < (lb * 20)) and (lb < (ls * 20))) and
        ((area_b != pmt_b) and (lb != ls))):
-        typePrint(Fore.GREEN + 'Basin dimensional inputted data'
+        print(Fore.GREEN + 'Basin dimensional inputted data'
                               ' is consistent.\n')
-        time.sleep(1)                      
-        typePrint(Fore.CYAN +'Proceeding...\n')
+        time.sleep(2)                      
+        typePrint('Proceeding...\n')
         time.sleep(1)
         return True
     else:
-        typePrint(Fore.RED + "There's discrepancies in between"
+        print(Fore.RED + "There's discrepancies in between"
                              " area and perimeter"
                              " or basin's length and main"
                              " stream length.\n")
-        time.sleep(1)
+        time.sleep(2)
         re_enter_data('dimensional', ['area_sqkm', 'perimeter_km',
                       'main_length_ls', 'basin_length_lb'],
                       check_dimensional_data)
@@ -301,8 +309,8 @@ def re_enter_data(var_name, variables, check_function):
             time.sleep(1)
             main()
         else:
-            typePrint(Fore.RED + 'Incorrect input. Please try again.')
-            time.sleep(1)
+            print(Fore.RED + 'Incorrect input. Please try again.')
+            time.sleep(2)
         break
 
 
@@ -361,19 +369,18 @@ def approve_transfered_data():
                 transfer_data.append(values)
             v_data_sheet.append_row(transfer_data)
             user_basin_n = len(v_data_sheet.get_all_values())
-            typePrint(Fore.GREEN + 'All data sent with success!\n')
-            print('/n')
-            time.sleep(0.5)
-            typePrint(Fore.CYAN + f'Your basin index number'
-                                  f' is "{user_basin_n}"')
-            print('/n')
-            typePrint(Fore.CYAN +'Save this number, it will be needed' 
-                                 'for "2. Run Morphometric Indices"\n')
+            print(Fore.GREEN + 'All data sent with success!\n')
+            time.sleep(1)
+            typePrint(f'Your basin index number is "{user_basin_n}"\n')
+            typePrint('Save this number, it will be needed for' 
+                      ' "2. Run Morphometric Indices"\n')
             break
         elif user_input.lower() == 'n' and 'exit':
             main()
         else:
-            typePrint(Fore.RED + 'Incorrect input. Please try again.\n')
+            print(Fore.RED + 'Incorrect input. Please try again.\n')
+            time.sleep(2)
+            print('\n')
         break
 
 # 1. Insert Basin Data
@@ -404,41 +411,42 @@ def validate_retrieve():
     max_rows_gsheets = 983
     b_name_clm = 1
     while True:
+        print('\n')
         b_index = input("Please insert your basin index number to continue\n"
                         "To go back to main menu type exit\n")
         
         if b_index.lower() == 'exit':
             print('\n')
-            typePrint(Fore.RED + "Exiting...")
+            print(Fore.RED + "Exiting...")
             time.sleep(1)
             main()
             return False
 
         if b_index.isdigit():
             if int(b_index) < max_rows_gsheets:
-                typePrint(Fore.GREEN + "Format is valid.\n"
-                          "\n")
-                time.sleep(0.5)
-                typePrint(Fore.CYAN + "Checking Database...\n"
-                          "\n")
+                print(Fore.GREEN + "Format is valid.\n")
+                time.sleep(0.75)
+                typePrint("Checking Database...\n")
                 time.sleep(1)
                 b_name = v_data_sheet.cell(int(b_index), b_name_clm).value
                 if re.match(RE_PATTERNS['basin_naming'], str(b_name)):
-                    typePrint("Retriving basin's data...\n")
-                    print('\n')
-                    time.sleep(1)
+                    typePrint("Retrieving basin's data...\n")
+                    time.sleep(1.5)
                     returned_user_data = v_data_sheet.row_values(int(b_index))
                     approve_retrieved_data()
                     return returned_user_data
                     print(returned_user_data)
                 else:
-                    typePrint(Fore.RED + "There's no data with that basin index\n")
-                    time.sleep(0.5)
+                    print(Fore.RED + "There's no data with that basin index\n")
+                    time.sleep(1.5)
                     validate_retrieve()
-            break
+            else:
+                print(Fore.RED + 'Incorrect input. Please try again.\n')
+                time.sleep(1.5)
+                validate_retrieve()
         else:
-            typePrint(Fore.RED + 'Incorrect input. Please try again.\n')
-            time.sleep(1)
+            print(Fore.RED + 'Incorrect input. Please try again.\n')
+            time.sleep(1.5)
             validate_retrieve()
         break
 
@@ -456,8 +464,8 @@ def approve_retrieved_data():
     user_input = input(f"Is {b_name} the desired basin?\n")
     while True:
         if user_input.lower() == 'y':
-            typePrint(Fore.CYAN + 'Running Morphometric Indices...\n')
-            time.sleep(1)
+            typePrint('Running Morphometric Indices...\n')
+            time.sleep(2.5)
             break
         elif user_input.lower() == 'n' and 'exit':
             time.sleep(1)
@@ -468,9 +476,9 @@ def approve_retrieved_data():
             clear_screen()
             main()
         else:
-            typePrint(Fore.RED + 'Incorrect input. Please try again.\n')
+            print(Fore.RED + 'Incorrect input. Please try again.\n')
             print('\n')
-            time.sleep(1)
+            time.sleep(1.5)
             validate_retrieve()
         break
 
@@ -599,8 +607,8 @@ def return_main():
             main()
             break
         else:
-            typePrint("Invalid input, please try again.")
-            time.sleep(2)
+            print(Fore.RED + "Invalid input, please try again.")
+            time.sleep(1)
             continue
 
 
@@ -610,9 +618,9 @@ def instructions():
     to be user as input for the app.
     """
     clear_screen()
-    print('/n')
-    print('/n')
-    TypePrint("Beforehand, the user needs to collect data on relief,\n"
+    print('\n')
+    print('\n')
+    typePrint("Beforehand, the user needs to collect data on relief,\n"
           "including linear and areal features. This can be done\n"
           "in various ways, such as consulting a topographic map\n"
           "or using a Geographic Information System (GIS).\n"
@@ -622,6 +630,7 @@ def instructions():
           "to input into the app.\n"
           "\n"
           "The required inputs are:\n"
+          "\n"
           "Latitude of the basin's centroid\n"
           "\n"
           "Longitude of the basin's centroid\n"
@@ -655,9 +664,9 @@ def about():
     Displays the basic information about the web application.
     """
     clear_screen()
-    print('/n')
-    print('/n')
-    TypePrint("The analysis of morphometric parameters is essential for\n"
+    print('\n')
+    print('\n')
+    typePrint("The analysis of morphometric parameters is essential for\n"
           "understanding and managing watersheds, making it a fundamental\n"
           "component of hydrological investigations.\n" 
           "\n"
@@ -702,12 +711,12 @@ def main():
     choose the application's functionalities.
     """
     call_ascii_art()
-    print("     Please choose from the options below.\n")
-    print("         1. Insert Basin Data")
-    print("         2. Run Morphometric Indices")
-    print("         3. Instructions")
-    print("         4. About")
-    print("         5. Exit\n")
+    typePrint("     Please choose from the options below.\n")
+    typePrint("         1. Insert Basin Data\n")
+    typePrint("         2. Run Morphometric Indices\n")
+    typePrint("         3. Instructions\n")
+    typePrint("         4. About\n")
+    typePrint("         5. Exit\n")
     while True:
         try:
             choice = int(input("Enter a number for the desired feature: \n"))
@@ -727,7 +736,7 @@ def main():
                 exit()
                 break
         except ValueError:
-            print("Invalid input. Enter a number according to"
+            print(Fore.RED + "Invalid input. Enter a number according to"
                   " the desired feature.\n")
             continue
 
