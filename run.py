@@ -625,6 +625,9 @@ def call_ascii_art():
                          _)                    (
         .                                                                .
         ##################################################################
+
+        ------------------- A Morphometric Calculator --------------------
+
         ''')
 
 # Inspired by Amy Richardson BakeStock PP3 project
@@ -633,11 +636,7 @@ def main():
     Displays the main menu with options for users to 
     choose the application's functionalities.
     """
-    print('\n')
     call_ascii_art()
-    print('\n')
-    print("------------------ A Morphometric Calculator------------------")
-    print('\n')
     print("     Please choose from the options below.\n")
     print("         1. Insert Basin Data")
     print("         2. Run Morphometric Indices")
