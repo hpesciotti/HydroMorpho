@@ -416,6 +416,7 @@ def get_user_basin_data():
     check_dimensional_data()
     clear_screen()
     print_input_data_table()
+    validate_retrive()
 
 
 # Morphometric Indices
@@ -549,6 +550,8 @@ def instructions():
     to be user as input for the app.
     """
     clear_screen()
+    print('/n')
+    print('/n')
     print("Beforehand, the user needs to collect data on relief,\n"
           "including linear and areal features. This can be done\n"
           "in various ways, such as consulting a topographic map\n"
@@ -592,6 +595,8 @@ def about():
     Displays the basic information about the web application.
     """
     clear_screen()
+    print('/n')
+    print('/n')
     print("The analysis of morphometric parameters is essential for\n"
           "understanding and managing watersheds, making it a fundamental\n"
           "component of hydrological investigations.\n" 
