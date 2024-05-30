@@ -611,6 +611,21 @@ def about():
           "the evolving demands of planning for climate-related disasters.\n")
     return_main()   
 
+
+def call_ascii_art():
+    """
+    Displays ascii art with the app logo.
+    """
+    print('''
+            ##################################################################
+            .                                                                .
+                         )_)     _ ) _ _   ))/) _   _ _ ( _   _
+                        ( ( (_( (_( ) (_) (  ( (_) ) )_) ) ) (_)
+                             _)                    (
+            .                                                                .
+            ##################################################################
+          ''')
+
 # Inspired by Amy Richardson BakeStock PP3 project
 def main():
     """
@@ -618,15 +633,16 @@ def main():
     choose the application's functionalities.
     """
     print('\n')
+    call_ascii_art()
     print('\n')
-    print("_____WELCOME__TO__HYDROMORPHO_____\n")
+    print("------------------ A Morphometric Calculator------------------\n")
     print('\n')
     print("Please choose from the options below.\n")
-    print("1. Insert Basin Data\n")
-    print("2. Run Morphometric Indices\n")
-    print("3. Instructions\n")
-    print("4. About\n")
-    print("5. Exit\n")
+    print("         1. Insert Basin Data")
+    print("         2. Run Morphometric Indices")
+    print("         3. Instructions")
+    print("         4. About")
+    print("         5. Exit\n")
     while True:
         try:
             choice = int(input("Enter a number for the desired feature: \n"))
