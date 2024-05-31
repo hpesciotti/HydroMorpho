@@ -112,13 +112,29 @@ The employed typography was Poppins provided by [Google Fonts](https://fonts.goo
 
 #### **Data Collection**
 
-This page defines the guidelines and provides general instructions on how the quiz works. The user must enter a valid username in a text input area with a maximum length of 15 characters. The user entry is saved in local storage and will later be used in the leaderboard. The function to get the username was inspired by Amy Richardson's PP2 project. The username is also reproduced on the following page via inner.html
+This section is designed to collect and validate basin data inserted by the user. The user is required to input eleven variables. The function of this section, get_data is structure by a while loop to continuously ask for input until valid data is provided. Depending on the variable_input, different prompts are showed to orientate and narrow the user’s input to better fit the validation patterns. The variables are:
+  - basin_name: Basin's name.
+  - lat_centroid: Latitude coordinate.
+  - long_centroid: Longitude coordinate.
+  - area_sqkm: Basin's area in square kilometers.
+  - perimeter_km: Basin's perimeter in kilometers.
+  - main_length_ls: Main stream length in kilometers.
+  - basin_length_lb: Basin's length in kilometers.
+  - elev_outlet_ho: Elevation of the basin's outlet in meters.
+  - elev_b_spring_hs: Elevation of the main stream start point in meters.
+  - elev_b_highest_p_hhp: Elevation of the basin's highest point in meters.
+  - urbanization_level_u: Degree of urbanization.
 
-Once the user's name is entered, a function is called to randomly pull ten questions from the allQuestions variable, which is the database. The setGameQuestions function generates playable questions by selecting "n" questions from a question database stored in the variable "allQuestions". It utilizes a loop to iterate over the questions and pushes them into an array named "gameQuestions". The design of this function was influenced by the approach discussed in the following Stack Overflow post: [Push 3 random names into a new array](https://stackoverflow.com/questions/52763765/push-3-random-names-into-a-new-array).
+Unlike the love sandwiches data, most of the user’s entries have a different pattern, which makes not viable to use try and get value error. Thus, in order to validate the different type of variables, I opt to use Regular Expressions or for short ReGex. 
+In sequence, the elevation data is  validated by arithmetically ensuring that the outlet elevation is lower than the spring elevation, which in turn must be lower than the highest point elevation. If the data is inconsistent, the user to re-enter the elevation data.
 
-Also, in the code sphere,  setQuestionsOptions sets the answer options for each question in the gameQuestions array by shuffling them. It employs the Durstenfeld shuffle algorithm, which efficiently randomizes the order of elements in an array. The implementation of this function draws inspiration from a thread on Stack Overflow regarding [How to randomize (shuffle) a JavaScript array.](https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array)
+Similarly, the consistency of the basin's dimensional data (area, perimeter, main stream length, and basin length) are also evaluated. Although there is no direct correlation between those variables, unlike the elevation, I thought that I wouldn’t be reasonable that area and perimeter should be 20 time larger than each other, and the same with main stream length, and basin length. Same as elevation, If the data is inconsistent, the user to re-enter the elevation data.
+At the end of this process, the user is presented with a table of the data entered for a final check and validation. If the user approves the data, it is transferred to the v_data tab of Google Sheets via API. An index value of the row with the user's data is returned to the user in order to start the process of calculating the morphometric indices.
 
-At last, the presence of a back to main menu button ensures that users can navigate freely.
+<details>
+<summary>func-morpho-indices</summary>
+
+![get_data](docs/documentation/get_data.png)
 
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
