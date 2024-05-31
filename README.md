@@ -48,6 +48,12 @@ This Python command line interface (CLI) application is a morphometric calculato
 
 My choice for an unorthodox and quite unique project stems from my academic background in Geography (bachelor's degree) and my knowledge of Fluvial Geomorphology and Geographic Information Systems (GIS). Moreover, I intended to deviate from classical Python projects in order to develop my competencies in thinking about the logic of software without relying on tutorials or other students' projects. Thus, combining watershed assessing methodologies with the versatility of Python and its libraries seemed a worthy challenge.
 
+Futhermore, The analysis of morphometric parameters is essential for understanding and managing watersheds, making it a fundamental component of hydrological investigations.
+This application provides a quick and accessible tool for obtaining hydrological and geomorphological morphometric parameters using collected data on relief, linear, and areal features.
+
+Through a variety of scientifically renowned methods, this application offers an overview of a basin's hydrological behavior, particularly regarding flood propensity.
+It caters to the needs of students,hydrology and geomorphology professionals, and the community, addressing the evolving demands of planning for climate-related disasters.
+
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ## **2. UX Design**
@@ -79,12 +85,6 @@ I generated the preliminary CLI application flow chart utilizing Lucidcharts. Th
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **2.4. Design**
-
-#### **Imagery**
-
-The site's background image was obtained through Adobe Firefly AI Image Generator application. The generative AI, based on a prompt indicating the colour palette, the illustration style, and the elements to be displayed, returned the [image](docs/documentation/background-image.png) present in the application. Furthermore, the image was compressed and convert to webp.
-
-[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 #### **Colour Scheme**
 
@@ -126,11 +126,11 @@ At last, the presence of a back to main menu button ensures that users can navig
 
 **Compactness Coefficient**
 
-The compactness coefficient (or Gravelius coefficient),  K_c , is defined as the ratio between the perimeter of a basin (P) and the perimeter of a circle with the same area (A). For a circular basin, the area and perimeter are given by  A = \pi r^2  and  P = 2\pi r , respectively. Thus, the compactness coefficient is calculated as:
+The Compactness Coefficient (or Gravelius coefficient),  Kc , is defined as the ratio between the perimeter of a basin ( P ) and the perimeter of a circle with the same area ( A ) . For a circular watershed, the area and perimeter are given by  A = \pi r^2  and  P = 2\pi r, respectively. Thus, the compactness coefficient is calculated as:
 
-\[ K_c = \frac{P}{2\sqrt{\pi A}} \]
+![Kc Formula](docs/documentation/compactness-coefficient-kc.png)
 
-This coefficient measures how closely the shape of a basin approximates a circle (Horton, 1945). When  K_c = 1 , the basin is perfectly circular. Values of  K_c  greater than 1 indicate a deviation from circularity. The coefficient is dimensionless and independent of the basin size, with a minimum value of 1 corresponding to a circular basin. Basins with  K_c  values near 1 are more prone to significant flooding. Typically,  K_c  values less than or equal to 1.13 represent generally rounded basins.
+This coefficient measures how closely the shape of a basin approximates a circle (Horton, 1945 apud Shekar and Matthew, 2024). When  Kc = 1 , the basin is perfectly circular. Values of  Kc  greater than 1 indicate a deviation from circularity. The coefficient is dimensionless and independent of the basin size, with a minimum value of 1 corresponding to a circular basin. Basins with  Kc  values near 1 are more prone to significant flooding. Typically,  Kc  values less than or equal to 1.13 represent generally rounded basins.
 
 Where:
 -  P  = perimeter of the watershed (km)
@@ -141,42 +141,42 @@ In summary:
 -  1.25 - 1.50 : basins with a moderate tendency for large floods
 -  > 1.50 : basins not prone to large floods
 
-2. **Time of Concentration**
+**Time of Concentration**
 
 Témez’s formula, tested in American and Spanish basins, closely approximates reality and, along with Giandotti's formula, is widely used in Portugal. The formula is:
 
-\[ t_c = \left(\frac{L}{i^{0.25}}\right)^{0.76} \]
+![tc Formula](docs/documentation/time-of-concentration-tc.png)
 
 Where:
--  t_c  = time of concentration (h)
+-  tc  = time of concentration (h)
 -  L  = main stream length (km)
 -  i  = average slope of the main stream
 
 According to Pelaez (1978), this formula can be applied to urban basins if urban zones are dispersed rather than concentrated. Urbanization enhances surface flow, necessitating adjustments to the time of concentration. Témez proposed the following adjustment for urban basins:
 
-\[ t_c' = \frac{t_c}{1 + 3 \cdot \sqrt{\mu} \cdot (2 - \mu)} \]
+![tcp Formula](docs/documentation/time-of-concentration-pelaez-tc.png)
 
-Where  t_c  (in hours) is the time of concentration for natural basins, and  \mu  (dimensionless) is the ratio of the impermeable area to the total area. This formula is valid for basins with an area less than 3000 km².
+Where  tc  (in hours) is the time of concentration for natural basins, and  u  (dimensionless) is the ratio of the impermeable area to the total area. This formula is valid for basins with an area less than 3000 km².
 
-3. **Form Factor ( K_f )**
+**Form Factor ( Kf )**
 
-The form factor,  K_f , represents the ratio between the average width ( l ) and the length of a basin ( L_b ). The average width is defined as the ratio between the area ( A ) and the length of the basin. Thus,  K_f  is:
+The form factor,  Kf , represents the ratio between the average width ( l ) and the length of a basin ( Lb ). The average width is defined as the ratio between the area ( A ) and the length of the basin. Thus,  Kf  is:
 
-\[ K_f = \frac{A}{L_b^2} \]
+![Kf Formula](docs/documentation/form-factor-ff.png)
 
-A basin with a low form factor is less prone to floods than one with a higher form factor because elongated basins have a lower likelihood of intense rain over the entire area simultaneously. Therefore, the contributions of tributaries do not occur simultaneously, reducing the critical flow rate. The maximum value of  K_f  is 1, corresponding to a square basin.
+A basin with a low form factor is less prone to floods than one with a higher form factor because elongated basins have a lower likelihood of intense rain over the entire area simultaneously. Therefore, the contributions of tributaries do not occur simultaneously, reducing the critical flow rate. The maximum value of  Kf  is 1, corresponding to a square basin.
 
-According to Horton (1932), the form factor is a dimensionless ratio of the basin length squared to the basin area, often used to describe various basin shapes (Vittala et al., 2004; Yangchan et al., 2015). The value ranges are:
+According to Horton (1932) apud Shekar and Matthew (2024), the form factor is a dimensionless ratio of the basin length squared to the basin area, often used to describe various basin shapes (Vittala et al., 2004; Yangchan et al., 2015). The value ranges are:
 
 -  1.00 - 0.75 : prone to floods
 -  0.75 - 0.50 : moderate tendency for floods
 -  < 0.50 : not prone to floods
 
-4. **Elongation Ratio ( R_e )**
+**Elongation Ratio ( Re )**
 
-The elongation ratio,  R_e , is the ratio of the diameter to the length of a circle with the same area as the catchment. It provides insight into the hydrological characteristics of a drainage basin. An elongated basin is less efficient at discharging runoff compared to a circular basin.  R_e  is calculated as:
+According to Shekar and Matthew (2024), the elongation ratio,  Re , is the ratio of the diameter to the length of a circle with the same area as the catchment. It provides insight into the hydrological characteristics of a drainage basin. An elongated basin is less efficient at discharging runoff compared to a circular basin.  Re  is calculated as:
 
-\[ R_e = \frac{\text{Diameter}}{\text{Length}} \]
+![Re Formula](docs/documentation/elongation_ratio_re.png)
 
 The categorization of elongation ratios is:
 
@@ -185,10 +185,51 @@ The categorization of elongation ratios is:
 - 0.7 to 0.8: less elongated
 - 0.8 to 0.9: oval
 
-5. **Relative Relief ( R_r )**
+**Relative Relief ( Rr )**
 
-Melton (1957) used the concepts of perimeter and watershed relief to calculate parameters such as relative relief, which measures the variation in altitude within a region relative to its local reference point. This metric is valuable as it accounts for the slopes and dynamic characteristics of the terrain, providing an understanding of the morphogenesis, or the processes shaping the region's landforms.
+Melton (1957) apud Shekar and Matthew (2024) used the concepts of perimeter and watershed relief to calculate parameters such as relative relief, which measures the variation in altitude within a region relative to its local reference point. This metric is valuable as it accounts for the slopes and dynamic characteristics of the terrain, providing an understanding of the morphogenesis, or the processes shaping the region's landforms.
 
+**Morphometric Indices in Python Environment**
+
+In the digital environment, the morphometric indices were treated by a function which grouped all the indices together. The choice of just one function to hold all the indices is justified by the possibility of reducing the code written, as this format only requires the get function of the Google Sheets API and assigning the values in the list to variables just once. 
+
+Furthermore, unlike the Love Sandwiches learning project, each column represents a morphometric index, which makes it complex to automate. The solution to this last problem is to use just one function with several indices and, at the end of the processing, group them into a list using the API's append function.
+
+<details>
+<summary>func-morpho-indices</summary>
+
+![func-morpho-indices](docs/documentation/func-morpho-indices.png)
+
+In order to avoid generating a basin index as at the end of the date acquisition process, I created another list, morpho_indices, in the global context and returned the values generated by the indices globally via the global tag. The morpho indices list is used in the table with the final result just like in f'string.
+
+Lastly, as mentioned, the results are retrieved from the morpho_indices list and represented in text and table format. Once again, the terminal tables were used to display the data to the user. The textual representation was made up of a concatenation of standard text, numerical indices and interpretation classes with textual evaluation. The final result of the application can be seen in the figure below.
+
+![final_result](docs/documentation/final_result.png)
+
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
+
+**Instructions**
+
+This page defines the guidelines and provides general instructions to operate the CLI app. The needed variables and method of obtention are futher discussed on this section.
+From a coding perpective, this page is only comprised of text element.
+
+<details>
+<summary>instructions</summary>
+
+![isntructions](docs/documentation/instructions.png)
+
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
+
+**About**
+
+Introduces the user to key concepts and describes the importance of morphometric indices in watershed studies, specially climate change times.
+
+<details>
+<summary>instructions</summary>
+
+![about](docs/documentation/about.png)
+
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **3.2. Future Features**
 
@@ -252,8 +293,6 @@ Melton (1957) used the concepts of perimeter and watershed relief to calculate p
 
 
 ## **6. Deployment**
-
-
 
 ### **6.1. Deploying via Heroku**
 
@@ -342,9 +381,9 @@ Changes made on the local machine (cloned repository) can be pushed to the upstr
 
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
-## **6. Credits**
+## **7. Credits**
 
-### **6.1. Content**
+### **7.1. Content**
 
 - Code Institute - Love Sandwiches projects: for fetching and saving data in Google Sheets.
 
@@ -372,13 +411,13 @@ Changes made on the local machine (cloned repository) can be pushed to the upstr
 
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
-### **6.2. Media**
+### **7.2. Media**
 
 - [Font Awesome](https://fontawesome.com/): for the icons used in the footer of the application.
 
 - [Partorjk](https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20): for ASCII logo.
 
-### **6.2. References**
+### **7.3. References**
 
 - Horton, R.E., 1945. Erosional development of streams and their drainage basins;
 hydrophysical approach to quantitative mor- phology. Bull. Geol. Soc. Am. 56
@@ -394,7 +433,7 @@ University.
 - Shekar, P. R., Matthew, A., 2024. Morphometric analysis of watersheds: A comprehensive 
 review of data sources, quality, and geospatial techniques. In: Watershed Ecology and the Environment 6 (2024) 13–25
 
-### **6.3. Acknowlegements**
+### **7.4. Acknowlegements**
 
 - My informal mentor and great friend, [Bruno Dias](https://github.com/brunoald/), for helping me to structure the project.
 

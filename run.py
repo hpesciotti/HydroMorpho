@@ -425,6 +425,7 @@ def validate_retrieve():
             print('\n')
             print(Fore.RED + "Exiting...")
             time.sleep(1)
+            clear_screen()
             main()
             return False
 
