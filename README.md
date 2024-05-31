@@ -110,8 +110,15 @@ The f_data table, on the other hand, cannot be accessed by the user and acts as 
 
 ### **2.5. Design**
 
+Como se trata de uma CLI as opções de design são limitadas. Contudo, por meio da biblioteca colorama foi conferido cor a algumas porçoes stratégica das strings exibidas no console. Os avisos de dados válidos e inválidos, são coloridos de verde e vermelho respectivamente. Ademais, colorama também foi usado com a cor cyano na arte ASCII apresentada no menu iniciar, sendo a última também uma customização de design. Menciona-se também que o efeito typewritter foi inserido estratégicamente em questionamentos ou respostas chave fornecidos pelo programa ao usuário com intuito de chamar atenção para uma porção crítica do rotina do aplicativo.
+Esses elementos gráficos foram inspirados pelo projeto PP3 da desenvolvedora Amy Richardson.
 
+Cabe mencionar que o layout html do template fornecido pela Code Institute foi ligeiramente alterado para exibir um elemento footer com as minhas redes e ornar com a cor do lgo da aplicação CLI. Os ajustes no template html foram insipirados no PP3 do desenvolvedor Aleksander Kisielewicz.
 
+<details>
+<summary>main_menu</summary>
+
+![get_data](docs/documentation/main_menu.png)
 
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
@@ -143,7 +150,7 @@ At the end of this process, the user is presented with a table of the data enter
 <details>
 <summary>get_data</summary>
 
-![get_data](docs/documentation/get_data.png)
+[get_data](docs/documentation/get_data.png)
 
 [Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
