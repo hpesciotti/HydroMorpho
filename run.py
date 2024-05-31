@@ -514,7 +514,6 @@ def morphometric_indices():
         basin_name, area, perimeter, main_length_ls, basin_length_lb,
         elev_outlet_ho, elev_spring_hs, elev_highest_hhp, urbanization
     ]
-    print("Input Variables:", all_vb)
 
     # Average Slope
     avg_raw_slope = (
