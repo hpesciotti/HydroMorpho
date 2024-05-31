@@ -257,7 +257,45 @@ Melton (1957) used the concepts of perimeter and watershed relief to calculate p
 
 ### **6.1. Deploying via Heroku**
 
+I. Through [Heroku](https://dashboard.heroku.com/) dashboarb a new app was created.
+"New" > "Create new app"
 
+II. Enter a name for the app and choose the Europe region.
+<details>
+<summary>Create New App</summary>
+
+![Create New App](docs/documentation/heroku-1.png)
+
+III. Next go to "Deploy" tab and then to "Deployment method" to authorize the connection to my GitHub account.
+<details>
+<summary>Connect to GitHub</summary>
+
+![Create New App](docs/documentation/heroku-2.png)
+
+IV. After succesfull connection, select main branch from "hydromorpho-app" repository.
+
+V. And then, go to Settings tab.
+
+VI. Add Node.js and Python buildpacks.
+<details>
+<summary>Add Buildpack</summary>
+
+![Create New App](docs/documentation/heroku-3.png)
+
+VII. Go to "Config Vars" and add as KEY "CREDS" and as VALUE the user credentials token
+VIII. Add in the same section KEY as "PORT" and 8000 as VALUE.
+<details>
+<summary>KEY VALUE</summary>
+
+![Create New App](docs/documentation/heroku-6.png)
+
+IX. In the "Deploy" tab Manual deploy was chosen.
+<details>
+<summary>Deploy</summary>
+
+![Create New App](docs/documentation/heroku-5.png)
+
+[Back to top](https://github.com/hpesciotti/HydroMorpho/blob/main/README.md)
 
 ### **6.2. Forking the GitHub Repository**
 
