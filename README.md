@@ -337,7 +337,7 @@ Introduces the user to key concepts and describes the importance of morphometric
 
 ## **5. Testing**
 
-- An additional file for Testing can be found here:
+- An additional file for Testing can be found here: [Testing](https://github.com/hpesciotti/HydroMorpho/blob/fac23bb85f2c4767468c63517cfbeb292f1f01f8/TESTING.md)
 
 ## **6. Deployment**
 
